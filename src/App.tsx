@@ -6,6 +6,10 @@ import { useState } from "react";
 function App() {
   const [filterText, setFilterText] = useState("");
 
+  const filteredSongs = rhythmGameSongs.filter((item) =>
+    item.songName.toLowerCase().includes(filterText.toLowerCase())
+  );
+
   return (
     <>
       <div className="container d-flex justify-content-center pt-3">
@@ -13,11 +17,8 @@ function App() {
       </div>
       <div className="container mt-4">
         <div className="row">
-          {rhythmGameSongs
-            .filter((item) =>
-              item.songName.toLowerCase().includes(filterText.toLowerCase())
-            )
-            .map((item, index) => (
+          {filteredSongs.length > 0 ? (
+            filteredSongs.map((item, index) => (
               <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <GameCard
                   songName={item.songName}
@@ -27,7 +28,12 @@ function App() {
                   chartLink={item.chartLink}
                 />
               </div>
-            ))}
+            ))
+          ) : (
+            <div className="col-12 text-center">
+              <p>No results found.</p>
+            </div>
+          )}
         </div>
       </div>
     </>

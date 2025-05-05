@@ -23,6 +23,7 @@ function GameCard({
         <h6 className="card-text">Difficulties</h6>
         <DifficultyListDisplay difficultyList={difficultyList}/>
         <div className="d-flex gap-2">
+          {/* Possible component? */}
           <a
             href={songLink}
             target="_blank"

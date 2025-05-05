@@ -7,7 +7,7 @@ export type rhythmGameSong = {
   chartLink: string;
 };
 
-// TODO: Change links
+// TODO: Change links and add expert chart links
 export const rhythmGameSongs: rhythmGameSong[] = [
   {
     id: 0,

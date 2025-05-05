@@ -1,0 +1,37 @@
+import GameCard from "./components/GameCard";
+import SearchBar from "./components/SearchBar";
+import { rhythmGameSongs } from "./data";
+import { useState } from "react";
+
+function App() {
+  const [filterText, setFilterText] = useState("");
+
+  return (
+    <>
+      <div className="container d-flex justify-content-center pt-3">
+        <SearchBar filterText={filterText} onFilterTextChange={setFilterText} />
+      </div>
+      <div className="container mt-4">
+        <div className="row">
+          {rhythmGameSongs
+            .filter((item) =>
+              item.songName.toLowerCase().includes(filterText.toLowerCase())
+            )
+            .map((item, index) => (
+              <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <GameCard
+                  songName={item.songName}
+                  artist={item.artist}
+                  difficultyList={item.difficultyList}
+                  songLink={item.songLink}
+                  chartLink={item.chartLink}
+                />
+              </div>
+            ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default App;

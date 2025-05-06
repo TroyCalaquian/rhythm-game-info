@@ -13,6 +13,16 @@ function RandomizerModal({
   selectedClass,
   setSelectedClass,
 }: Props) {
+
+  const classFaceValues = {
+    "1": ["10", "10+", "11"], // Class "i"
+    "2": ["11+", "12", "12+"], // Class "ii"
+    "3": ["12+", "13", "13+"], // Class "iii"
+    "4": ["13+", "14", "14+"], // Class "iv"
+    "5": ["14", "14+", "15"], // Class "v"
+    "6": ["14+", "15", "15+"], // Class "INF"
+  };
+
   return (
     <>
       <Modal
@@ -36,7 +46,6 @@ function RandomizerModal({
         }}
       >
         <h2>Randomize Songs</h2>
-        <p>This should allow you to choose a set of songs, based on filters</p>
 
         <div style={{ marginTop: "20px" }}>
           <p>
@@ -64,6 +73,16 @@ function RandomizerModal({
               </label>
             ))}
           </div>
+        </div>
+
+        <div>
+          <input
+            type="checkbox"
+            id="randomOmnimixFilter">
+          </input>
+          <label htmlFor="checkmarkFilter" style={{ marginLeft: "8px" }}>
+            Include Omnimix Songs
+          </label>
         </div>
 
         <div

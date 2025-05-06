@@ -13,12 +13,14 @@ function App() {
   const [filterVersion, setVersionCategory] = useState("");
   const [filterOmnimix, setfilterOmnimix] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedClass, setSelectedClass] = useState("");
 
-  const filteredSongs = rhythmGameSongs.filter((item) =>
-    item.songName.toLowerCase().includes(filterText.toLowerCase())
-    && (!filterCategory || item.category === filterCategory)
-    && (!filterVersion || item.version === filterVersion)
-    && (filterOmnimix || !item.omnimix)
+  const filteredSongs = rhythmGameSongs.filter(
+    (item) =>
+      item.songName.toLowerCase().includes(filterText.toLowerCase()) &&
+      (!filterCategory || item.category === filterCategory) &&
+      (!filterVersion || item.version === filterVersion) &&
+      (filterOmnimix || !item.omnimix)
   );
 
   return (
@@ -58,7 +60,12 @@ function App() {
         </div>
       </div>
       <div>
-        <RandomizerModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
+        <RandomizerModal
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          selectedClass={selectedClass}
+          setSelectedClass={setSelectedClass}
+        />
       </div>
     </>
   );

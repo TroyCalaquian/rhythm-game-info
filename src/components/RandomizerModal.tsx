@@ -3,15 +3,22 @@ import Modal from "react-modal";
 interface Props {
   isModalOpen: boolean;
   setIsModalOpen: (value: boolean) => void;
+  selectedClass: string;
+  setSelectedClass: (value: string) => void;
 }
 
-function RandomizerModal({ isModalOpen, setIsModalOpen }: Props) {
+function RandomizerModal({
+  isModalOpen,
+  setIsModalOpen,
+  selectedClass,
+  setSelectedClass,
+}: Props) {
   return (
     <>
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
-        contentLabel="Example Modal"
+        contentLabel="Randomizer Modal"
         style={{
           content: {
             top: "50%",
@@ -30,7 +37,58 @@ function RandomizerModal({ isModalOpen, setIsModalOpen }: Props) {
       >
         <h2>Randomize Songs</h2>
         <p>This should allow you to choose a set of songs, based on filters</p>
-        <button onClick={() => setIsModalOpen(false)}>Close</button>
+
+        <div style={{ marginTop: "20px" }}>
+          <p>
+            <strong>Select Class:</strong>
+          </p>
+          <div>
+            {[
+              { label: "i", value: "1" },
+              { label: "ii", value: "2" },
+              { label: "iii", value: "3" },
+              { label: "iv", value: "4" },
+              { label: "v", value: "5" },
+              { label: "INF", value: "6" },
+            ].map((item) => (
+              <label key={item.value} style={{ marginRight: "15px" }}>
+                <input
+                  type="radio"
+                  name="courseClass"
+                  value={item.value}
+                  checked={selectedClass === item.value}
+                  onChange={(e) => setSelectedClass(e.target.value)}
+                />{" "}
+                {item.label}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: "10px",
+            marginTop: "20px",
+          }}
+        >
+          <a
+            className="btn btn-secondary"
+            onClick={() => setIsModalOpen(false)}
+          >
+            Close
+          </a>
+          <a
+            className="btn btn-primary"
+            onClick={() => {
+              console.log("Randomizing with class:", selectedClass);
+              setIsModalOpen(false);
+            }}
+          >
+            Randomize
+          </a>
+        </div>
       </Modal>
     </>
   );

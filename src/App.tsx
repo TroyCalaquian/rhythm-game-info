@@ -13,7 +13,7 @@ function App() {
     item.songName.toLowerCase().includes(filterText.toLowerCase())
     && (!filterCategory || item.category === filterCategory)
     && (!filterVersion || item.version === filterVersion)
-    && (!filterOmnimix || item.omnimix)
+    && (filterOmnimix || !item.omnimix)
   );
 
   return (

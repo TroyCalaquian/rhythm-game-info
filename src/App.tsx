@@ -5,6 +5,9 @@ import { useState } from "react";
 
 function App() {
   const [filterText, setFilterText] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
+  const [filterVersion, setVersionCategory] = useState("");
+  const [filterOmnimix, setfilterOmnimix] = useState(false);
 
   const filteredSongs = rhythmGameSongs.filter((item) =>
     item.songName.toLowerCase().includes(filterText.toLowerCase())
@@ -13,7 +16,16 @@ function App() {
   return (
     <>
       <div className="container d-flex justify-content-center pt-3">
-        <SearchBar filterText={filterText} onFilterTextChange={setFilterText} />
+        <SearchBar
+          filterText={filterText}
+          onFilterTextChange={setFilterText}
+          filterCategory={filterCategory}
+          onCategoryChange={setFilterCategory}
+          filterVersion={filterVersion}
+          onVersionChange={setVersionCategory}
+          filterOmnimix={filterOmnimix}
+          onOmnimixChange={setfilterOmnimix}
+        />
       </div>
       <div className="container mt-4">
         <div className="row">

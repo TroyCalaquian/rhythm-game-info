@@ -3,7 +3,23 @@ import Select from "react-select";
 interface Props {
   filterText: string;
   onFilterTextChange: (song: string) => void;
+  filterCategory: string;
+  onCategoryChange: (category: string) => void;
+  filterVersion: string;
+  onVersionChange: (version: string) => void;
+  filterOmnimix: boolean;
+  onOmnimixChange: (value: boolean) => void;
 }
+
+const categories = [
+  { value: "", label: "Category" },
+  { value: "P&A", label: "Pops and Anime" },
+  { value: "TP", label: "Touhou Project" },
+  { value: "Variety", label: "Variety" },
+  { value: "GekiMai", label: "GekiMai" },
+  { value: "Irodorimidori", label: "Irodorimidori" },
+  { value: "Original", label: "Original" },
+];
 
 const options = [
   { value: "", label: "Version" },
@@ -28,37 +44,72 @@ const options = [
   { value: "verse", label: "Verse" },
 ];
 
-function SearchBar({ filterText, onFilterTextChange }: Props) {
+function SearchBar({
+  filterText,
+  onFilterTextChange,
+  filterCategory,
+  onCategoryChange,
+  filterVersion,
+  onVersionChange,
+  filterOmnimix,
+  onOmnimixChange,
+}: Props) {
   {
     /* Filter by Category, Version, Omnimix */
   }
   return (
     <form>
+      {/* Search bar - stays on its own line */}
       <input
         type="text"
         value={filterText}
         placeholder="Search for a song"
         onChange={(e) => onFilterTextChange(e.target.value)}
+        style={{ width: "100%", marginBottom: "10px" }}
       />
 
-      <Select
-        options={options}
-        placeholder="Select a version"
-        styles={{
-          menuList: (provided) => ({
-            ...provided,
-            maxHeight: 200, // limits the dropdown height
-          }),
-        }}
-      />
+      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+        <Select
+          options={categories}
+          placeholder="Category"
+          value={categories.find((option) => option.value === filterCategory)}
+          onChange={(selectedOption) =>
+            onCategoryChange(selectedOption ? selectedOption.value : "")
+          }
+          styles={{
+            menuList: (provided) => ({
+              ...provided,
+              maxHeight: 200,
+            }),
+          }}
+        />
 
-      <div
-        style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}
-      >
-        <input type="checkbox" id="checkmarkFilter" />
-        <label htmlFor="checkmarkFilter" style={{ marginLeft: "8px" }}>
-          Include Omnimix Songs
-        </label>
+        <Select
+          options={options}
+          placeholder="Version"
+          value={options.find((option) => option.value === filterVersion)}
+          onChange={(selectedOption) =>
+            onVersionChange(selectedOption ? selectedOption.value : "")
+          }
+          styles={{
+            menuList: (provided) => ({
+              ...provided,
+              maxHeight: 200,
+            }),
+          }}
+        />
+
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <input
+            type="checkbox"
+            id="checkmarkFilter"
+            checked={filterOmnimix}
+            onChange={(e) => onOmnimixChange(e.target.checked)}
+          />
+          <label htmlFor="checkmarkFilter" style={{ marginLeft: "8px" }}>
+            Include Omnimix Songs
+          </label>
+        </div>
       </div>
     </form>
   );

@@ -8,6 +8,9 @@ export type rhythmGameSong = {
 };
 
 // TODO: Change links and add expert chart links
+// TODO: Add version that songs originated from
+// TODO: Omnimix or not
+// TODO: Add category for each song
 export const rhythmGameSongs: rhythmGameSong[] = [
   {
     id: 0,

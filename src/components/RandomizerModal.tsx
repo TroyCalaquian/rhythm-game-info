@@ -43,6 +43,7 @@ function RandomizerModal({
             <strong>Select Class:</strong>
           </p>
           <div>
+            {/* i: 10 - 11 . ii: 11+ - 12+ . iii: 12+ - 13+ . iv: 13+ - 14+ . v: 14 - 15 . INF: 14+ - 15+ */}
             {[
               { label: "i", value: "1" },
               { label: "ii", value: "2" },

@@ -1,9 +1,10 @@
+import { Difficulty } from "../data";
 import DifficultyListDisplay from "./DifficultyListDisplay";
 
 interface Props {
   songName: string;
   artist: string;
-  difficultyList: string[];
+  difficultyList: Difficulty[];
   songLink: string;
   chartLink: string;
 }

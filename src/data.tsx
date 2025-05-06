@@ -93,5 +93,18 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       version: "crystal",
       omnimix: false,
   },
+  {
+    id: 7,
+    songName: "Territory Battle",
+    artist: "Tuyu",
+    difficultyList: ["Basic 2.0", "Advanced 5.0", "Expert 9.0", "Master 12.4"],
+    songLink:
+      "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+      category: "Original",
+      version: "paradiseLost",
+      omnimix: true,
+  },
 ];
 

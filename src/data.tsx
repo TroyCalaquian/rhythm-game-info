@@ -5,6 +5,9 @@ export type rhythmGameSong = {
   difficultyList: string[];
   songLink: string;
   chartLink: string;
+  category: string;
+  version: string;
+  omnimix: boolean;
 };
 
 // TODO: Change links and add expert chart links
@@ -21,6 +24,9 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       "https://www.youtube.com/watch?v=eSW2LVbPThw&pp=ygULcmFiYml0IGhvbGU%3D",
     chartLink:
       "https://www.youtube.com/watch?v=09EtW7gFEVM&pp=ygUUcmFiYml0IGhvbGUgY2h1bml0aG0%3D",
+    category: "P&A",
+    version: "verse",
+    omnimix: false,
   },
   {
     id: 1,
@@ -31,6 +37,9 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
     chartLink:
       "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+      category: "P&A",
+      version: "sunPlus",
+      omnimix: false,
   },
   {
     id: 3,
@@ -41,6 +50,9 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
     chartLink:
       "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+      category: "P&A",
+      version: "sunPlus",
+      omnimix: false,
   },
   {
     id: 4,
@@ -51,6 +63,9 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
     chartLink:
       "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+      category: "P&A",
+      version: "sun",
+      omnimix: false,
   },
   {
     id: 5,
@@ -61,6 +76,9 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
     chartLink:
       "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+      category: "P&A",
+      version: "sun",
+      omnimix: false,
   },
   {
     id: 6,
@@ -71,6 +89,9 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
     chartLink:
       "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+      category: "P&A",
+      version: "crystal",
+      omnimix: false,
   },
 ];
 

@@ -9,6 +9,7 @@ interface Props {
   onVersionChange: (version: string) => void;
   filterOmnimix: boolean;
   onOmnimixChange: (value: boolean) => void;
+  setIsModalOpen: (value: boolean) => void;
 }
 
 const categories = [
@@ -53,12 +54,13 @@ function SearchBar({
   onVersionChange,
   filterOmnimix,
   onOmnimixChange,
+  setIsModalOpen,
 }: Props) {
   {
     /* Filter by Category, Version, Omnimix */
   }
   return (
-    <form>
+    <form onSubmit={(e) => e.preventDefault()}>
       {/* Search bar - stays on its own line */}
       <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
         <input
@@ -66,10 +68,18 @@ function SearchBar({
           value={filterText}
           placeholder="Search for a song"
           onChange={(e) => onFilterTextChange(e.target.value)}
-          style={{ width: "100%", marginBottom: "10px" }}
+          style={{ flex: 1 }}
         />
+        <button
+          className="btn btn-primary"
+          style={{ marginLeft: "10px" }}
+          onClick={() => setIsModalOpen(true)}
+        >
+          Open Randomizer
+        </button>
       </div>
       <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+        {/* Possible Component? */}
         <Select
           options={categories}
           placeholder="Category"

@@ -1,13 +1,18 @@
 import GameCard from "./components/GameCard";
+import RandomizerModal from "./components/RandomizerModal";
 import SearchBar from "./components/SearchBar";
+import Modal from "react-modal";
 import { rhythmGameSongs } from "./data";
 import { useState } from "react";
+
+Modal.setAppElement("#root");
 
 function App() {
   const [filterText, setFilterText] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
   const [filterVersion, setVersionCategory] = useState("");
   const [filterOmnimix, setfilterOmnimix] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredSongs = rhythmGameSongs.filter((item) =>
     item.songName.toLowerCase().includes(filterText.toLowerCase())
@@ -28,6 +33,7 @@ function App() {
           onVersionChange={setVersionCategory}
           filterOmnimix={filterOmnimix}
           onOmnimixChange={setfilterOmnimix}
+          setIsModalOpen={setIsModalOpen}
         />
       </div>
       <div className="container mt-4">
@@ -50,6 +56,9 @@ function App() {
             </div>
           )}
         </div>
+      </div>
+      <div>
+        <RandomizerModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
       </div>
     </>
   );

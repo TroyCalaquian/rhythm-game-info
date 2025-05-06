@@ -60,14 +60,15 @@ function SearchBar({
   return (
     <form>
       {/* Search bar - stays on its own line */}
-      <input
-        type="text"
-        value={filterText}
-        placeholder="Search for a song"
-        onChange={(e) => onFilterTextChange(e.target.value)}
-        style={{ width: "100%", marginBottom: "10px" }}
-      />
-
+      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+        <input
+          type="text"
+          value={filterText}
+          placeholder="Search for a song"
+          onChange={(e) => onFilterTextChange(e.target.value)}
+          style={{ width: "100%", marginBottom: "10px" }}
+        />
+      </div>
       <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
         <Select
           options={categories}
@@ -82,6 +83,7 @@ function SearchBar({
               maxHeight: 200,
             }),
           }}
+          isClearable={true}
         />
 
         <Select
@@ -97,6 +99,7 @@ function SearchBar({
               maxHeight: 200,
             }),
           }}
+          isClearable={true}
         />
 
         <div style={{ display: "flex", alignItems: "center" }}>

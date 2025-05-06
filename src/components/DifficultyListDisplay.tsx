@@ -7,7 +7,6 @@ function DifficultyListDisplay({difficultyList} : Props ) {
         <>
           {difficultyList.map((difficulty) => {
             let colorStyle = {};
-    
             if (difficulty.startsWith("Basic")) {
               colorStyle = { color: "green" };
             } else if (difficulty.startsWith("Advanced")) {

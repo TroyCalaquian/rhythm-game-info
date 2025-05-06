@@ -12,7 +12,7 @@ Use the following command to run the project: `npm run dev`
 
 # TODO
 
-1. Add more filters when searching
+1. ~~Add more filters when searching~~
 2. Add randomizer option to select any amount of songs
 3. Put data into database and call it rather than using data.tsx
 4. Possibly add more songs on different games

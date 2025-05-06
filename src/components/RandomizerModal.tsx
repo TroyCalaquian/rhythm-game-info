@@ -99,6 +99,7 @@ function RandomizerModal({
           >
             Close
           </a>
+          {/* Pretty sure the functionality of random goes here */}
           <a
             className="btn btn-primary"
             onClick={() => {

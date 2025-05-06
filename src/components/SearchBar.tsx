@@ -15,6 +15,7 @@ interface Props {
 const categories = [
   { value: "", label: "Category" },
   { value: "P&A", label: "Pops and Anime" },
+  { value: "NN", label: "niconico" },
   { value: "TP", label: "Touhou Project" },
   { value: "Variety", label: "Variety" },
   { value: "GekiMai", label: "GekiMai" },

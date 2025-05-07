@@ -65,6 +65,7 @@ function App() {
           setIsModalOpen={setIsModalOpen}
           selectedClass={selectedClass}
           setSelectedClass={setSelectedClass}
+          rhythmGameSongs={rhythmGameSongs}
         />
       </div>
     </>

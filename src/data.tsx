@@ -2,7 +2,7 @@ export type Difficulty = {
   levelName: string;
   value: number;
   faceValue: string;
-}
+};
 
 export type rhythmGameSong = {
   id: number;
@@ -28,8 +28,10 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       { levelName: "Expert", value: 11.0, faceValue: "11" },
       { levelName: "Master", value: 13.7, faceValue: "13+" },
     ],
-    songLink: "https://www.youtube.com/watch?v=eSW2LVbPThw&pp=ygULcmFiYml0IGhvbGU%3D",
-    chartLink: "https://www.youtube.com/watch?v=09EtW7gFEVM&pp=ygUUcmFiYml0IGhvbGUgY2h1bml0aG0%3D",
+    songLink:
+      "https://www.youtube.com/watch?v=eSW2LVbPThw&pp=ygULcmFiYml0IGhvbGU%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=09EtW7gFEVM&pp=ygUUcmFiYml0IGhvbGUgY2h1bml0aG0%3D",
     category: "P&A",
     version: "verse",
     omnimix: false,
@@ -44,8 +46,10 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       { levelName: "Expert", value: 10.0, faceValue: "10" },
       { levelName: "Master", value: 12.7, faceValue: "12+" },
     ],
-    songLink: "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
-    chartLink: "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+    songLink:
+      "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
     category: "P&A",
     version: "sunPlus",
     omnimix: false,
@@ -60,8 +64,10 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       { levelName: "Expert", value: 9.5, faceValue: "9+" },
       { levelName: "Master", value: 12.9, faceValue: "12+" },
     ],
-    songLink: "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
-    chartLink: "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+    songLink:
+      "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
     category: "P&A",
     version: "sunPlus",
     omnimix: false,
@@ -76,8 +82,10 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       { levelName: "Expert", value: 9.0, faceValue: "9" },
       { levelName: "Master", value: 12.8, faceValue: "12+" },
     ],
-    songLink: "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
-    chartLink: "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+    songLink:
+      "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
     category: "P&A",
     version: "sun",
     omnimix: false,
@@ -92,8 +100,10 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       { levelName: "Expert", value: 8.5, faceValue: "8+" },
       { levelName: "Master", value: 11.9, faceValue: "11+" },
     ],
-    songLink: "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
-    chartLink: "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+    songLink:
+      "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
     category: "P&A",
     version: "sun",
     omnimix: false,
@@ -109,8 +119,10 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       { levelName: "Master", value: 13.7, faceValue: "13+" },
       { levelName: "Ultima", value: 14.0, faceValue: "14" },
     ],
-    songLink: "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
-    chartLink: "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+    songLink:
+      "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
     category: "P&A",
     version: "crystal",
     omnimix: false,
@@ -125,8 +137,10 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       { levelName: "Expert", value: 9.0, faceValue: "9" },
       { levelName: "Master", value: 12.4, faceValue: "12" },
     ],
-    songLink: "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
-    chartLink: "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+    songLink:
+      "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
     category: "Original",
     version: "paradiseLost",
     omnimix: true,
@@ -141,8 +155,10 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       { levelName: "Expert", value: 7.5, faceValue: "7+" },
       { levelName: "Master", value: 10.9, faceValue: "10+" },
     ],
-    songLink: "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
-    chartLink: "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+    songLink:
+      "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
     category: "NN",
     version: "paradise",
     omnimix: false,
@@ -157,8 +173,10 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       { levelName: "Expert", value: 7.5, faceValue: "7+" },
       { levelName: "Master", value: 10.4, faceValue: "10" },
     ],
-    songLink: "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
-    chartLink: "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+    songLink:
+      "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
     category: "GekiMai",
     version: "amazonPlus",
     omnimix: false,
@@ -173,8 +191,10 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       { levelName: "Expert", value: 11.0, faceValue: "11" },
       { levelName: "Master", value: 14.3, faceValue: "14" },
     ],
-    songLink: "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
-    chartLink: "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+    songLink:
+      "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
     category: "Variety",
     version: "amazon",
     omnimix: false,
@@ -189,8 +209,10 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       { levelName: "Expert", value: 9.5, faceValue: "9+" },
       { levelName: "Master", value: 11.3, faceValue: "11" },
     ],
-    songLink: "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
-    chartLink: "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+    songLink:
+      "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
     category: "Variety",
     version: "amazon",
     omnimix: false,
@@ -205,12 +227,12 @@ export const rhythmGameSongs: rhythmGameSong[] = [
       { levelName: "Expert", value: 8.5, faceValue: "8+" },
       { levelName: "Master", value: 12.4, faceValue: "12" },
     ],
-    songLink: "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
-    chartLink: "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
+    songLink:
+      "https://www.youtube.com/watch?v=z5htbwxjhlw&pp=ygURZ29vZGJ5ZSBpbm5vY2VuY2XSBwkJhAkBhyohjO8%3D",
+    chartLink:
+      "https://www.youtube.com/watch?v=nrzv5q3uc1c&pp=ygUaZ29vZGJ5ZSBpbm5vY2VuY2UgY2h1bml0aG3SBwkJhAkBhyohjO8%3D",
     category: "TP",
     version: "starPlus",
     omnimix: false,
   },
 ];
-
-

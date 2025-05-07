@@ -1,10 +1,12 @@
 import Modal from "react-modal";
+import { rhythmGameSong } from "../data";
 
 interface Props {
   isModalOpen: boolean;
   setIsModalOpen: (value: boolean) => void;
   selectedClass: string;
   setSelectedClass: (value: string) => void;
+  rhythmGameSongs: rhythmGameSong[];
 }
 
 function RandomizerModal({
@@ -12,9 +14,9 @@ function RandomizerModal({
   setIsModalOpen,
   selectedClass,
   setSelectedClass,
+  rhythmGameSongs,
 }: Props) {
-
-  const classFaceValues = {
+  const classFaceValues: { [key: string]: string[] } = {
     "1": ["10", "10+", "11"], // Class "i"
     "2": ["11+", "12", "12+"], // Class "ii"
     "3": ["12+", "13", "13+"], // Class "iii"
@@ -76,11 +78,8 @@ function RandomizerModal({
         </div>
 
         <div>
-          <input
-            type="checkbox"
-            id="randomOmnimixFilter">
-          </input>
-          <label htmlFor="checkmarkFilter" style={{ marginLeft: "8px" }}>
+          <input type="checkbox" id="randomOmnimixFilter"></input>
+          <label htmlFor="randomOmnimixFilter" style={{ marginLeft: "8px" }}>
             Include Omnimix Songs
           </label>
         </div>
@@ -104,6 +103,40 @@ function RandomizerModal({
             className="btn btn-primary"
             onClick={() => {
               console.log("Randomizing with class:", selectedClass);
+              const classLevels = classFaceValues[selectedClass];
+              console.log(classLevels);
+              
+              const songsByLevel: { [level: string]: rhythmGameSong[] } = {};
+
+              // Initialize empty arrays for each level
+              classLevels.forEach((level) => {
+                songsByLevel[level] = [];
+              });
+
+              // For each song, check which levels it matches and push into that bucket
+              rhythmGameSongs.forEach((song) => {
+                song.difficultyList.forEach((difficulty) => {
+                  if (classLevels.includes(difficulty.faceValue)) {
+                    songsByLevel[difficulty.faceValue].push(song);
+                  }
+                });
+              });
+
+              console.log("Songs by level:", songsByLevel);
+
+              const selectedSongs: rhythmGameSong[] = [];
+
+              // Pick one random song for each level
+              classLevels.forEach((level) => {
+                const songs = songsByLevel[level];
+                if (songs.length > 0) {
+                  const randomSong =
+                    songs[Math.floor(Math.random() * songs.length)];
+                  selectedSongs.push(randomSong);
+                }
+              });
+
+              console.log("Selected Songs:", selectedSongs);
               setIsModalOpen(false);
             }}
           >

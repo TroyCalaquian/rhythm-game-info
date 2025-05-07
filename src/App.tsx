@@ -13,7 +13,7 @@ function App() {
   const [filterVersion, setVersionCategory] = useState("");
   const [filterOmnimix, setfilterOmnimix] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedClass, setSelectedClass] = useState("");
+  const [selectedClass, setSelectedClass] = useState("1");
 
   const filteredSongs = rhythmGameSongs.filter(
     (item) =>

@@ -135,17 +135,10 @@ function RandomizerModal({
 
               // For each song, check which levels it matches and push into that bucket
               rhythmGameSongs.forEach((song) => {
-                // Always include non-Omnimix songs
-                if (!song.omnimix) {
-                  song.difficultyList.forEach((difficulty) => {
-                    if (classLevels.includes(difficulty.faceValue)) {
-                      songsByLevel[difficulty.faceValue].push(song);
-                    }
-                  });
-                }
+                // Check if song should be included based on filter and Omnimix status
+                const shouldIncludeSong = includeOmnimix || !song.omnimix;
 
-                // If Omnimix filter is on, include Omnimix songs
-                if (includeOmnimix && song.omnimix) {
+                if (shouldIncludeSong) {
                   song.difficultyList.forEach((difficulty) => {
                     if (classLevels.includes(difficulty.faceValue)) {
                       songsByLevel[difficulty.faceValue].push(song);

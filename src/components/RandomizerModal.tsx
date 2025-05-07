@@ -1,5 +1,7 @@
 import Modal from "react-modal";
 import { rhythmGameSong } from "../data";
+import { useEffect, useState } from "react";
+import GameCard from "./GameCard";
 
 interface Props {
   isModalOpen: boolean;
@@ -25,6 +27,12 @@ function RandomizerModal({
     "6": ["14+", "15", "15+"], // Class "INF"
   };
 
+  const [pickedSongs, setPickedSongs] = useState<rhythmGameSong[]>([]);
+
+  useEffect(() => {
+    console.log("pickedSongs updated:", pickedSongs);
+  }, [pickedSongs]);
+
   return (
     <>
       <Modal
@@ -41,6 +49,10 @@ function RandomizerModal({
             transform: "translate(-50%, -50%)",
             padding: "20px",
             borderRadius: "8px",
+            width: "80%", // Adjust this to control the width
+            maxWidth: "1000px", // Optionally set a max width
+            maxHeight: "90vh", // Limit max height
+            overflow: "auto", // Enable scroll when needed
           },
           overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -54,7 +66,6 @@ function RandomizerModal({
             <strong>Select Class:</strong>
           </p>
           <div>
-            {/* i: 10 - 11 . ii: 11+ - 12+ . iii: 12+ - 13+ . iv: 13+ - 14+ . v: 14 - 15 . INF: 14+ - 15+ */}
             {[
               { label: "i", value: "1" },
               { label: "ii", value: "2" },
@@ -70,7 +81,7 @@ function RandomizerModal({
                   value={item.value}
                   checked={selectedClass === item.value}
                   onChange={(e) => setSelectedClass(e.target.value)}
-                />{" "}
+                />
                 {item.label}
               </label>
             ))}
@@ -98,14 +109,13 @@ function RandomizerModal({
           >
             Close
           </a>
-          {/* Pretty sure the functionality of random goes here */}
           <a
             className="btn btn-primary"
             onClick={() => {
               console.log("Randomizing with class:", selectedClass);
               const classLevels = classFaceValues[selectedClass];
               console.log(classLevels);
-              
+
               const songsByLevel: { [level: string]: rhythmGameSong[] } = {};
 
               // Initialize empty arrays for each level
@@ -136,13 +146,32 @@ function RandomizerModal({
                 }
               });
 
-              console.log("Selected Songs:", selectedSongs);
-              setIsModalOpen(false);
+              setPickedSongs(selectedSongs);
             }}
           >
             Randomize
           </a>
         </div>
+
+        {pickedSongs.length > 0 && (
+          <div className="mt-4">
+            <h5>Picked Songs:</h5>
+            <div className="row g-3">
+              {" "}
+              {pickedSongs.map((item, index) => (
+                <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                  <GameCard
+                    songName={item.songName}
+                    artist={item.artist}
+                    difficultyList={item.difficultyList}
+                    songLink={item.songLink}
+                    chartLink={item.chartLink}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </Modal>
     </>
   );

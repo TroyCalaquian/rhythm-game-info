@@ -113,8 +113,9 @@ function SearchBar({
           isClearable={true}
         />
 
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center" }} className="form-check form-switch">
           <input
+            className="form-check-input"
             type="checkbox"
             id="checkmarkFilter"
             checked={filterOmnimix}

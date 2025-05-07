@@ -28,7 +28,7 @@ function RandomizerModal({
   };
 
   const [pickedSongs, setPickedSongs] = useState<rhythmGameSong[]>([]);
-
+  const [includeOmnimix, setIncludeOmnimix] = useState(false);
   useEffect(() => {
     console.log("pickedSongs updated:", pickedSongs);
   }, [pickedSongs]);
@@ -88,9 +88,19 @@ function RandomizerModal({
           </div>
         </div>
 
-        <div>
-          <input type="checkbox" id="randomOmnimixFilter"></input>
-          <label htmlFor="randomOmnimixFilter" style={{ marginLeft: "8px" }}>
+        <div className="form-check form-switch">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id="randomOmnimixFilter"
+            checked={includeOmnimix} // This is the state controlling the toggle
+            onChange={(e) => setIncludeOmnimix(e.target.checked)} // Updates the state on toggle change
+          />
+          <label
+            className="form-check-label"
+            htmlFor="randomOmnimixFilter"
+            style={{ marginLeft: "8px" }}
+          >
             Include Omnimix Songs
           </label>
         </div>
@@ -125,11 +135,23 @@ function RandomizerModal({
 
               // For each song, check which levels it matches and push into that bucket
               rhythmGameSongs.forEach((song) => {
-                song.difficultyList.forEach((difficulty) => {
-                  if (classLevels.includes(difficulty.faceValue)) {
-                    songsByLevel[difficulty.faceValue].push(song);
-                  }
-                });
+                // Always include non-Omnimix songs
+                if (!song.omnimix) {
+                  song.difficultyList.forEach((difficulty) => {
+                    if (classLevels.includes(difficulty.faceValue)) {
+                      songsByLevel[difficulty.faceValue].push(song);
+                    }
+                  });
+                }
+
+                // If Omnimix filter is on, include Omnimix songs
+                if (includeOmnimix && song.omnimix) {
+                  song.difficultyList.forEach((difficulty) => {
+                    if (classLevels.includes(difficulty.faceValue)) {
+                      songsByLevel[difficulty.faceValue].push(song);
+                    }
+                  });
+                }
               });
 
               console.log("Songs by level:", songsByLevel);
@@ -156,10 +178,10 @@ function RandomizerModal({
         {pickedSongs.length > 0 && (
           <div className="mt-4">
             <h5>Picked Songs:</h5>
-            <div className="row g-3">
+            <div className="row">
               {" "}
               {pickedSongs.map((item, index) => (
-                <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div key={index} className="col">
                   <GameCard
                     songName={item.songName}
                     artist={item.artist}

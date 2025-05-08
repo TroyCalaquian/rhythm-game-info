@@ -2,30 +2,11 @@ import GameCard from "./components/GameCard";
 import RandomizerModal from "./components/RandomizerModal";
 import SearchBar from "./components/SearchBar";
 import Modal from "react-modal";
-import { rhythmGameSongs } from "./data";
+import { rhythmGameSong } from "./types";
 import { useEffect, useState } from "react";
 import supabase from "./components/supabaseClient";
 
 Modal.setAppElement("#root");
-
-type Difficulty = {
-  levelName: string;
-  value: number;
-  faceValue: string;
-};
-
-type rhythmGameSong = {
-  id: number;
-  songName: string;
-  artist: string;
-  difficultyList: Difficulty[];
-  songLink: string;
-  masterChartLink: string;
-  expertChartLink: string;
-  category: string;
-  version: string;
-  omnimix: boolean;
-};
 
 function App() {
   const [filterText, setFilterText] = useState("");
@@ -77,8 +58,8 @@ function App() {
       <div className="container mt-4">
         <div className="row">
           {filteredSongs.length > 0 ? (
-            filteredSongs.map((item, index) => (
-              <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
+            filteredSongs.map((item) => (
+              <div key={item.id} className="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <GameCard
                   songName={item.songName}
                   artist={item.artist}
@@ -101,7 +82,7 @@ function App() {
           setIsModalOpen={setIsModalOpen}
           selectedClass={selectedClass}
           setSelectedClass={setSelectedClass}
-          rhythmGameSongs={rhythmGameSongs}
+          rhythmGameSongs={rhythmGameSongData}
         />
       </div>
     </>

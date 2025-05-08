@@ -1,5 +1,5 @@
 import Modal from "react-modal";
-import { rhythmGameSong } from "../data";
+import { rhythmGameSong } from "../types";
 import { useEffect, useState } from "react";
 import GameCard from "./GameCard";
 
@@ -180,7 +180,7 @@ function RandomizerModal({
                     artist={item.artist}
                     difficultyList={item.difficultyList}
                     songLink={item.songLink}
-                    chartLink={item.chartLink}
+                    chartLink={item.masterChartLink}
                   />
                 </div>
               ))}

@@ -40,6 +40,8 @@ function App() {
       (filterOmnimix || !item.omnimix)
   );
 
+  console.log("Songs:", rhythmGameSongData);
+
   return (
     <>
       <div className="container d-flex justify-content-center pt-3">

@@ -3,7 +3,8 @@ import RandomizerModal from "./components/RandomizerModal";
 import SearchBar from "./components/SearchBar";
 import Modal from "react-modal";
 import { rhythmGameSongs } from "./data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import supabase from "./components/supabaseClient";
 
 Modal.setAppElement("#root");
 

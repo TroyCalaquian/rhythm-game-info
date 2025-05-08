@@ -180,7 +180,8 @@ function RandomizerModal({
                     artist={item.artist}
                     difficultyList={item.difficultyList}
                     songLink={item.songLink}
-                    chartLink={item.masterChartLink}
+                    masterChartLink={item.masterChartLink}
+                    expertChartLink={item.expertChartLink}
                   />
                 </div>
               ))}

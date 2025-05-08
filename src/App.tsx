@@ -63,10 +63,11 @@ function App() {
         <div className="row">
           {filteredSongs.length > 0 ? (
             filteredSongs.map((item) => (
-              <div key={item.id} className="col-sm-12 col-md-6 col-lg-4 mb-4">
+              <div key={item.id} className="col-6 col-md-3 mb-4">
                 <GameCard
                   songName={item.songName}
                   artist={item.artist}
+                  image={item.image}
                   difficultyList={item.difficultyList}
                   songLink={item.songLink}
                   ultimaChartLink={item.ultimaChartLink}

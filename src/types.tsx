@@ -8,6 +8,7 @@ export type rhythmGameSong = {
   id: number;
   songName: string;
   artist: string;
+  image: string;
   difficultyList: Difficulty[];
   songLink: string;
   ultimaChartLink: string;

@@ -178,6 +178,7 @@ function RandomizerModal({
                   <GameCard
                     songName={item.songName}
                     artist={item.artist}
+                    image={item.image}
                     difficultyList={item.difficultyList}
                     songLink={item.songLink}
                     ultimaChartLink={item.ultimaChartLink}

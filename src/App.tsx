@@ -8,6 +8,25 @@ import supabase from "./components/supabaseClient";
 
 Modal.setAppElement("#root");
 
+type Difficulty = {
+  levelName: string;
+  value: number;
+  faceValue: string;
+};
+
+type rhythmGameSong = {
+  id: number;
+  songName: string;
+  artist: string;
+  difficultyList: Difficulty[];
+  songLink: string;
+  masterChartLink: string;
+  expertChartLink: string;
+  category: string;
+  version: string;
+  omnimix: boolean;
+};
+
 function App() {
   const [filterText, setFilterText] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
@@ -15,8 +34,24 @@ function App() {
   const [filterOmnimix, setfilterOmnimix] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedClass, setSelectedClass] = useState("1");
+  const [rhythmGameSongData, setRhythmGameSongData] = useState<rhythmGameSong[]>([]);
 
-  const filteredSongs = rhythmGameSongs.filter(
+  useEffect(() => {
+    getData();
+  }, []);
+
+  async function getData() {
+    const { data, error } = await supabase
+      .from("rhythmGameSongData")
+      .select("*");
+    if (error) {
+      console.error("Error fetching data:", error);
+    } else {
+      setRhythmGameSongData(data);
+    }
+  }
+
+  const filteredSongs = rhythmGameSongData.filter(
     (item) =>
       item.songName.toLowerCase().includes(filterText.toLowerCase()) &&
       (!filterCategory || item.category === filterCategory) &&
@@ -49,7 +84,7 @@ function App() {
                   artist={item.artist}
                   difficultyList={item.difficultyList}
                   songLink={item.songLink}
-                  chartLink={item.chartLink}
+                  chartLink={item.masterChartLink}
                 />
               </div>
             ))

@@ -18,10 +18,15 @@ function App() {
   const [rhythmGameSongData, setRhythmGameSongData] = useState<
     rhythmGameSong[]
   >([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const songsPerPage = 12;
 
   useEffect(() => {
     getData();
   }, []);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterText, filterCategory, filterVersion, filterOmnimix]);
 
   async function getData() {
     const { data, error } = await supabase
@@ -42,6 +47,11 @@ function App() {
       (filterOmnimix || !item.omnimix)
   );
 
+  const totalPages = Math.ceil(filteredSongs.length / songsPerPage);
+  const indexOfLastSong = currentPage * songsPerPage;
+  const indexOfFirstSong = indexOfLastSong - songsPerPage;
+  const currentSongs = filteredSongs.slice(indexOfFirstSong, indexOfLastSong);
+
   console.log("Songs:", rhythmGameSongData);
 
   return (
@@ -59,10 +69,31 @@ function App() {
           setIsModalOpen={setIsModalOpen}
         />
       </div>
+      <div className="d-flex justify-content-center mt-3">
+        <nav>
+          <ul className="pagination">
+            {[...Array(totalPages)].map((_, index) => (
+              <li
+                key={index}
+                className={`page-item ${
+                  currentPage === index + 1 ? "active" : ""
+                }`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
       <div className="container mt-4">
         <div className="row">
-          {filteredSongs.length > 0 ? (
-            filteredSongs.map((item) => (
+          {currentSongs.length > 0 ? (
+            currentSongs.map((item) => (
               <div key={item.id} className="col-6 col-md-3 mb-4">
                 <GameCard
                   songName={item.songName}
@@ -83,6 +114,7 @@ function App() {
           )}
         </div>
       </div>
+
       <div>
         <RandomizerModal
           isModalOpen={isModalOpen}

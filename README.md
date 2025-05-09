@@ -86,7 +86,7 @@ Use the following command to run the project: `npm run dev`
 
 1. ~~Add more filters when searching~~
 2. ~~Add randomizer option to select any amount of songs~~ Changed to align with course mode
-3. ~~ Put data into database and call it rather than using data.tsx ~~
+3. ~~Put data into database and call it rather than using data.tsx~~
 4. Add images to the data
 5. Make it mobile friendly (only works well in desktop right now)
 6. Possibly add more songs on different games

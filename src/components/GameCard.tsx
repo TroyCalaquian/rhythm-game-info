@@ -1,4 +1,4 @@
-import { Difficulty } from "../data";
+import { Difficulty } from "../types";
 import DifficultyListDisplay from "./DifficultyListDisplay";
 
 interface Props {
@@ -6,17 +6,19 @@ interface Props {
   artist: string;
   difficultyList: Difficulty[];
   songLink: string;
-  chartLink: string;
+  masterChartLink: string;
+  expertChartLink: string;
 }
 function GameCard({
   songName,
   artist,
   difficultyList,
   songLink,
-  chartLink,
+  masterChartLink,
+  expertChartLink,
 }: Props) {
   return (
-    <div className="card" style={{ width: "18rem" }}>
+    <div className="card" style={{ width: "22rem" }}>
       {/* <img src="..." className="card-img-top" alt="..." /> */}
       <div className="card-body">
         <h2 className="card-title">{songName}</h2>
@@ -34,12 +36,20 @@ function GameCard({
             View Song
           </a>
           <a
-            href={chartLink}
+            href={masterChartLink}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-info"
           >
             View Master Chart
+          </a>
+          <a
+            href={expertChartLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-danger"
+          >
+            View Expert Chart
           </a>
         </div>
       </div>

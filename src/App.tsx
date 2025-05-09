@@ -2,7 +2,7 @@ import GameCard from "./components/GameCard";
 import RandomizerModal from "./components/RandomizerModal";
 import SearchBar from "./components/SearchBar";
 import Modal from "react-modal";
-import { rhythmGameSongs } from "./data";
+import { rhythmGameSong } from "./types";
 import { useEffect, useState } from "react";
 import supabase from "./components/supabaseClient";
 
@@ -15,8 +15,24 @@ function App() {
   const [filterOmnimix, setfilterOmnimix] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedClass, setSelectedClass] = useState("1");
+  const [rhythmGameSongData, setRhythmGameSongData] = useState<rhythmGameSong[]>([]);
 
-  const filteredSongs = rhythmGameSongs.filter(
+  useEffect(() => {
+    getData();
+  }, []);
+
+  async function getData() {
+    const { data, error } = await supabase
+      .from("rhythmGameSongData")
+      .select("*");
+    if (error) {
+      console.error("Error fetching data:", error);
+    } else {
+      setRhythmGameSongData(data);
+    }
+  }
+
+  const filteredSongs = rhythmGameSongData.filter(
     (item) =>
       item.songName.toLowerCase().includes(filterText.toLowerCase()) &&
       (!filterCategory || item.category === filterCategory) &&
@@ -42,14 +58,15 @@ function App() {
       <div className="container mt-4">
         <div className="row">
           {filteredSongs.length > 0 ? (
-            filteredSongs.map((item, index) => (
-              <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
+            filteredSongs.map((item) => (
+              <div key={item.id} className="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <GameCard
                   songName={item.songName}
                   artist={item.artist}
                   difficultyList={item.difficultyList}
                   songLink={item.songLink}
-                  chartLink={item.chartLink}
+                  masterChartLink={item.masterChartLink}
+                  expertChartLink={item.expertChartLink}
                 />
               </div>
             ))
@@ -66,7 +83,7 @@ function App() {
           setIsModalOpen={setIsModalOpen}
           selectedClass={selectedClass}
           setSelectedClass={setSelectedClass}
-          rhythmGameSongs={rhythmGameSongs}
+          rhythmGameSongs={rhythmGameSongData}
         />
       </div>
     </>

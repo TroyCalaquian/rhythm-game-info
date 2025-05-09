@@ -15,7 +15,9 @@ function App() {
   const [filterOmnimix, setfilterOmnimix] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedClass, setSelectedClass] = useState("1");
-  const [rhythmGameSongData, setRhythmGameSongData] = useState<rhythmGameSong[]>([]);
+  const [rhythmGameSongData, setRhythmGameSongData] = useState<
+    rhythmGameSong[]
+  >([]);
 
   useEffect(() => {
     getData();
@@ -40,6 +42,8 @@ function App() {
       (filterOmnimix || !item.omnimix)
   );
 
+  console.log("Songs:", rhythmGameSongData);
+
   return (
     <>
       <div className="container d-flex justify-content-center pt-3">
@@ -59,12 +63,14 @@ function App() {
         <div className="row">
           {filteredSongs.length > 0 ? (
             filteredSongs.map((item) => (
-              <div key={item.id} className="col-sm-6 col-md-4 col-lg-3 mb-4">
+              <div key={item.id} className="col-6 col-md-3 mb-4">
                 <GameCard
                   songName={item.songName}
                   artist={item.artist}
+                  image={item.image}
                   difficultyList={item.difficultyList}
                   songLink={item.songLink}
+                  ultimaChartLink={item.ultimaChartLink}
                   masterChartLink={item.masterChartLink}
                   expertChartLink={item.expertChartLink}
                 />

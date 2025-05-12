@@ -26,12 +26,13 @@ function App() {
   }, []);
   useEffect(() => {
     setCurrentPage(1);
-  }, [filterText, filterCategory, filterVersion, filterOmnimix]);
+  }, [filterText, filterCategory, filterVersion]);
 
   async function getData() {
     const { data, error } = await supabase
       .from("rhythmGameSongData")
-      .select("*");
+      .select("*")
+      .order("id", { ascending: false });
     if (error) {
       console.error("Error fetching data:", error);
     } else {

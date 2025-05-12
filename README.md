@@ -43,28 +43,28 @@ An example entry would be:
     "artist": "Godspeed",
     "difficultyList": [
       {
-        "value": 6,
-        "faceValue": "6",
+        "value": 3,
+        "faceValue": "3",
         "levelName": "Basic"
       },
       {
-        "value": 9,
-        "faceValue": "9",
+        "value": 5,
+        "faceValue": "5",
         "levelName": "Advanced"
       },
       {
-        "value": 12.6,
-        "faceValue": "12+",
+        "value": 9.5,
+        "faceValue": "9+",
         "levelName": "Expert"
       },
       {
-        "value": 14.7,
-        "faceValue": "14+",
+        "value": 12,
+        "faceValue": "12",
         "levelName": "Master"
       },
       {
-        "value": 15.1,
-        "faceValue": "15",
+        "value": 14.1,
+        "faceValue": "14",
         "levelName": "Ultima"
       }
     ],

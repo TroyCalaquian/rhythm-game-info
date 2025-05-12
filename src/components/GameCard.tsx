@@ -46,14 +46,20 @@ function GameCard({
         </h6>
         <DifficultyListDisplay difficultyList={difficultyList} />
         <div className="d-flex flex-column gap-1">
-          <a
-            href={songLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary w-100 btn-sm"
-          >
-            View Song
-          </a>
+          {songLink ? (
+            <a
+              href={songLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary w-100 btn-sm"
+            >
+              View Song
+            </a>
+          ) : (
+            <button className="btn btn-secondary w-100 btn-sm" disabled>
+              No Link Available
+            </button>
+          )}
           <div className="d-flex gap-1">
             {ultimaChartLink && (
               <a
@@ -65,22 +71,41 @@ function GameCard({
                 Ultima
               </a>
             )}
-            <a
-              href={masterChartLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-info flex-fill btn-sm"
-            >
-              Master
-            </a>
-            <a
-              href={expertChartLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-danger flex-fill btn-sm"
-            >
-              Expert
-            </a>
+            {masterChartLink ? (
+              <a
+                href={masterChartLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-info flex-fill btn-sm"
+              >
+                Master
+              </a>
+            ) : (
+              <button
+                className="btn btn-outline-info flex-fill btn-sm"
+                disabled
+              >
+                No Master
+              </button>
+            )}
+
+            {expertChartLink ? (
+              <a
+                href={expertChartLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-danger flex-fill btn-sm"
+              >
+                Expert
+              </a>
+            ) : (
+              <button
+                className="btn btn-outline-danger flex-fill btn-sm"
+                disabled
+              >
+                No Expert
+              </button>
+            )}
           </div>
         </div>
       </div>

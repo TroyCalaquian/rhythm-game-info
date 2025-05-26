@@ -67,7 +67,7 @@ function SearchBar({
         <input
           type="text"
           value={filterText}
-          placeholder="Search for a song"
+          placeholder="Search for a song or artist"
           onChange={(e) => onFilterTextChange(e.target.value)}
           style={{ flex: 1 }}
         />

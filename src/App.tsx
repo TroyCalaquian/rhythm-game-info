@@ -40,13 +40,19 @@ function App() {
     }
   }
 
-  const filteredSongs = rhythmGameSongData.filter(
-    (item) =>
-      item.songName.toLowerCase().includes(filterText.toLowerCase()) &&
+  const filteredSongs = rhythmGameSongData.filter((item) => {
+    const searchText = filterText.toLowerCase();
+    const matchesSearch =
+      item.songName.toLowerCase().includes(searchText) ||
+      item.artist.toLowerCase().includes(searchText);
+
+    return (
+      matchesSearch &&
       (!filterCategory || item.category === filterCategory) &&
       (!filterVersion || item.version === filterVersion) &&
       (filterOmnimix || !item.omnimix)
-  );
+    );
+  });
 
   const totalPages = Math.ceil(filteredSongs.length / songsPerPage);
   const indexOfLastSong = currentPage * songsPerPage;

@@ -91,3 +91,10 @@ Use the following command to run the project: `npm run dev`
 5. Make it mobile friendly (only works well in desktop right now)
 6. Possibly add more songs on different games
 7. Try to make all the song titles to English (yay....)
+
+# Credits
+
+https://wikiwiki.jp/chunithmwiki/: General list of Songs and images
+https://irodorimidori.fandom.com/wiki/Irodorimidori_Wiki: List of Irodorimidori songs
+https://vocaloidlyrics.fandom.com/wiki/Vocaloid_Lyrics_Wiki: List of Vocaloid songs in romaji
+https://docs.google.com/spreadsheets/d/1xP1huTSA-XWKZaDfmyNh-viRbUE777d2Rg54j5-2VAU/edit?gid=86796591#gid=86796591: Codex for confirming chart constants

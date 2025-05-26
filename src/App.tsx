@@ -73,21 +73,70 @@ function App() {
       <div className="d-flex justify-content-center mt-3">
         <nav>
           <ul className="pagination">
-            {[...Array(totalPages)].map((_, index) => (
-              <li
-                key={index}
-                className={`page-item ${
-                  currentPage === index + 1 ? "active" : ""
-                }`}
+            <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+              <button
+                className="page-link"
+                onClick={() =>
+                  currentPage > 1 && setCurrentPage(currentPage - 1)
+                }
               >
-                <button
-                  className="page-link"
-                  onClick={() => setCurrentPage(index + 1)}
-                >
-                  {index + 1}
-                </button>
-              </li>
-            ))}
+                &laquo; Prev
+              </button>
+            </li>
+            {Array.from({ length: totalPages }, (_, index) => {
+              const page = index + 1;
+              const isFirst = page === 1;
+              const isLast = page === totalPages;
+              const isNearCurrent = Math.abs(page - currentPage) <= 1;
+
+              if (isFirst || isLast || isNearCurrent) {
+                return (
+                  <li
+                    key={page}
+                    className={`page-item ${
+                      currentPage === page ? "active" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => setCurrentPage(page)}
+                    >
+                      {page}
+                    </button>
+                  </li>
+                );
+              }
+
+              // Render ellipsis if not already rendered
+              const shouldShowStartEllipsis =
+                page === currentPage - 2 && page > 1;
+              const shouldShowEndEllipsis =
+                page === currentPage + 2 && page < totalPages;
+
+              if (shouldShowStartEllipsis || shouldShowEndEllipsis) {
+                return (
+                  <li key={`ellipsis-${page}`} className="page-item disabled">
+                    <span className="page-link">...</span>
+                  </li>
+                );
+              }
+
+              return null;
+            })}
+            <li
+              className={`page-item ${
+                currentPage === totalPages ? "disabled" : ""
+              }`}
+            >
+              <button
+                className="page-link"
+                onClick={() =>
+                  currentPage < totalPages && setCurrentPage(currentPage + 1)
+                }
+              >
+                Next &raquo;
+              </button>
+            </li>
           </ul>
         </nav>
       </div>

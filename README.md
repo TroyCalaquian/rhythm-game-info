@@ -84,17 +84,18 @@ Use the following command to run the project: `npm run dev`
 
 # TODO
 
-1. ~~Add more filters when searching~~
-2. ~~Add randomizer option to select any amount of songs~~ Changed to align with course mode
-3. ~~Put data into database and call it rather than using data.tsx~~
-4. ~~Add images to the data~~
-5. Make it mobile friendly (only works well in desktop right now)
-6. Possibly add more songs on different games
-7. ~~Try to make all the song titles to English (yay....)~~ This one is on the database side anyways
-8. Allow songs to be searched with aliases (Change to backend, but should make songs easier to look for)
-9. Make admin panel for adding songs (This will make life a lot easier when going back to the top part)
+1. Make it mobile friendly (only works well in desktop right now)
+2. Possibly add more songs on different games
+3. ~~Try to make all the song titles to English (yay....)~~ This one is on the database side anyways
+4. Allow songs to be searched with aliases (Change to backend, but should make songs easier to look for)
+5. Make admin panel for adding songs (This will make life a lot easier when going back to the top part)
+6. Put front facing text into localization document (Possibly support multiple languages?)
+7. Link to topdown view of chart
+8. Link/refer to codex entry (VERY UNLIKELY)
 
 # Credits
+
+All songs and videos belong to their respective owners
 
 https://wikiwiki.jp/chunithmwiki/: General list of Songs and images
 https://irodorimidori.fandom.com/wiki/Irodorimidori_Wiki: List of Irodorimidori songs

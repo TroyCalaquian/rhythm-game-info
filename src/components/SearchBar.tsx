@@ -1,4 +1,13 @@
-import Select from "react-select";
+// import Select from "react-select";
+import {
+  Form,
+  Input,
+  Button,
+  Checkbox,
+  Select,
+  SelectSection,
+  SelectItem,
+} from "@heroui/react";
 
 interface Props {
   filterText: string;
@@ -58,78 +67,58 @@ function SearchBar({
   setIsModalOpen,
 }: Props) {
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+    <Form onSubmit={(e) => e.preventDefault()} className="space-y-4">
       {/* Search input and Randomizer button */}
       <div className="flex gap-3 items-center">
-        <input
+        <Input
           type="text"
           value={filterText}
           placeholder="Search for a song or artist"
           onChange={(e) => onFilterTextChange(e.target.value)}
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1"
         />
-        <button
-          type="button"
-          onClick={() => setIsModalOpen(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm"
-        >
-          Open Randomizer
-        </button>
+        <Button onClick={() => setIsModalOpen(true)}>Open Randomizer</Button>
       </div>
 
       {/* Filters */}
       <div className="flex flex-wrap gap-3 items-center">
         <div className="min-w-[180px]">
-          <Select
-            options={categories}
-            placeholder="Category"
-            value={categories.find((option) => option.value === filterCategory)}
-            onChange={(selectedOption) =>
-              onCategoryChange(selectedOption ? selectedOption.value : "")
-            }
-            styles={{
-              menuList: (provided) => ({
-                ...provided,
-                maxHeight: 200,
-              }),
-            }}
-            isClearable
-          />
+          <Select label="Category" placeholder="Category" className="max-w-xs">
+            {categories.map((option) => (
+              <SelectItem
+                key={option.value}
+                onClick={() => onCategoryChange(option.value)}
+              >
+                {option.label}
+              </SelectItem>
+            ))}
+          </Select>
         </div>
 
         <div className="min-w-[180px]">
-          <Select
-            options={versions}
-            placeholder="Version"
-            value={versions.find((option) => option.value === filterVersion)}
-            onChange={(selectedOption) =>
-              onVersionChange(selectedOption ? selectedOption.value : "")
-            }
-            styles={{
-              menuList: (provided) => ({
-                ...provided,
-                maxHeight: 200,
-              }),
-            }}
-            isClearable
-          />
+          <Select label="Version" placeholder="Version" className="max-w-xs">
+            {versions.map((option) => (
+              <SelectItem
+                key={option.value}
+                onClick={() => onVersionChange(option.value)}
+              >
+                {option.label}
+              </SelectItem>
+            ))}
+          </Select>
         </div>
 
         {/* Omnimix Toggle */}
         <div className="flex items-center gap-2">
-          <input
-            id="checkmarkFilter"
-            type="checkbox"
-            className="accent-blue-600 w-4 h-4"
+          <Checkbox
             checked={filterOmnimix}
             onChange={(e) => onOmnimixChange(e.target.checked)}
-          />
-          <label htmlFor="checkmarkFilter" className="text-sm">
+          >
             Include Omnimix Songs
-          </label>
+          </Checkbox>
         </div>
       </div>
-    </form>
+    </Form>
   );
 }
 

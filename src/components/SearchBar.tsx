@@ -23,7 +23,7 @@ const categories = [
   { value: "Original", label: "Original" },
 ];
 
-const options = [
+const versions = [
   { value: "", label: "Version" },
   { value: "Chunithm", label: "Chunithm" },
   { value: "Chunithm Plus", label: "Chunithm Plus" },
@@ -57,71 +57,74 @@ function SearchBar({
   onOmnimixChange,
   setIsModalOpen,
 }: Props) {
-  {
-    /* Filter by Category, Version, Omnimix */
-  }
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
-      {/* Search bar - stays on its own line */}
-      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+    <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+      {/* Search input and Randomizer button */}
+      <div className="flex gap-3 items-center">
         <input
           type="text"
           value={filterText}
           placeholder="Search for a song or artist"
           onChange={(e) => onFilterTextChange(e.target.value)}
-          style={{ flex: 1 }}
+          className="flex-1 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
-          className="btn btn-primary"
-          style={{ marginLeft: "10px" }}
+          type="button"
           onClick={() => setIsModalOpen(true)}
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm"
         >
           Open Randomizer
         </button>
       </div>
-      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-        {/* Possible Component? */}
-        <Select
-          options={categories}
-          placeholder="Category"
-          value={categories.find((option) => option.value === filterCategory)}
-          onChange={(selectedOption) =>
-            onCategoryChange(selectedOption ? selectedOption.value : "")
-          }
-          styles={{
-            menuList: (provided) => ({
-              ...provided,
-              maxHeight: 200,
-            }),
-          }}
-          isClearable={true}
-        />
 
-        <Select
-          options={options}
-          placeholder="Version"
-          value={options.find((option) => option.value === filterVersion)}
-          onChange={(selectedOption) =>
-            onVersionChange(selectedOption ? selectedOption.value : "")
-          }
-          styles={{
-            menuList: (provided) => ({
-              ...provided,
-              maxHeight: 200,
-            }),
-          }}
-          isClearable={true}
-        />
+      {/* Filters */}
+      <div className="flex flex-wrap gap-3 items-center">
+        <div className="min-w-[180px]">
+          <Select
+            options={categories}
+            placeholder="Category"
+            value={categories.find((option) => option.value === filterCategory)}
+            onChange={(selectedOption) =>
+              onCategoryChange(selectedOption ? selectedOption.value : "")
+            }
+            styles={{
+              menuList: (provided) => ({
+                ...provided,
+                maxHeight: 200,
+              }),
+            }}
+            isClearable
+          />
+        </div>
 
-        <div style={{ display: "flex", alignItems: "center" }} className="form-check form-switch">
+        <div className="min-w-[180px]">
+          <Select
+            options={versions}
+            placeholder="Version"
+            value={versions.find((option) => option.value === filterVersion)}
+            onChange={(selectedOption) =>
+              onVersionChange(selectedOption ? selectedOption.value : "")
+            }
+            styles={{
+              menuList: (provided) => ({
+                ...provided,
+                maxHeight: 200,
+              }),
+            }}
+            isClearable
+          />
+        </div>
+
+        {/* Omnimix Toggle */}
+        <div className="flex items-center gap-2">
           <input
-            className="form-check-input"
-            type="checkbox"
             id="checkmarkFilter"
+            type="checkbox"
+            className="accent-blue-600 w-4 h-4"
             checked={filterOmnimix}
             onChange={(e) => onOmnimixChange(e.target.checked)}
           />
-          <label htmlFor="checkmarkFilter" style={{ marginLeft: "8px" }}>
+          <label htmlFor="checkmarkFilter" className="text-sm">
             Include Omnimix Songs
           </label>
         </div>

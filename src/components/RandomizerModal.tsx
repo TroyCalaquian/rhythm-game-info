@@ -7,6 +7,8 @@ import {
   ModalFooter,
   Button,
   Switch,
+  RadioGroup,
+  Radio,
 } from "@heroui/react";
 import { useEffect, useState } from "react";
 import GameCard from "./GameCard";
@@ -54,8 +56,7 @@ function RandomizerModal({
               <ModalBody>
                 {" "}
                 <div className="mt-4">
-                  <p className="font-semibold mb-2">Select Class:</p>
-                  <div className="flex flex-wrap gap-4">
+                  <RadioGroup label="Select Class:" orientation="horizontal" defaultValue={selectedClass}>
                     {[
                       { label: "i", value: "1" },
                       { label: "ii", value: "2" },
@@ -63,23 +64,17 @@ function RandomizerModal({
                       { label: "iv", value: "4" },
                       { label: "v", value: "5" },
                       { label: "INF", value: "6" },
-                    ].map((item) => (
-                      <label
-                        key={item.value}
-                        className="flex items-center gap-1"
+                    ].map((option) => (
+                      <Radio
+                        key={option.value}
+                        value={option.value}
+                        onChange={(e) => setSelectedClass(e.target.value)}
+                        className="accent-blue-600"
                       >
-                        <input
-                          type="radio"
-                          name="courseClass"
-                          value={item.value}
-                          checked={selectedClass === item.value}
-                          onChange={(e) => setSelectedClass(e.target.value)}
-                          className="accent-blue-600"
-                        />
-                        <span className="text-sm">{item.label}</span>
-                      </label>
+                        {option.label}
+                      </Radio>
                     ))}
-                  </div>
+                  </RadioGroup>
                 </div>
                 <div className="mt-4 flex items-center gap-2">
                   <Switch

@@ -1,4 +1,4 @@
-import Select from "react-select";
+import { Form, Input, Button, Switch, Select, SelectItem } from "@heroui/react";
 
 interface Props {
   filterText: string;
@@ -13,7 +13,6 @@ interface Props {
 }
 
 const categories = [
-  { value: "", label: "Category" },
   { value: "P&A", label: "Pops and Anime" },
   { value: "NN", label: "niconico" },
   { value: "TP", label: "Touhou Project" },
@@ -23,8 +22,7 @@ const categories = [
   { value: "Original", label: "Original" },
 ];
 
-const options = [
-  { value: "", label: "Version" },
+const versions = [
   { value: "Chunithm", label: "Chunithm" },
   { value: "Chunithm Plus", label: "Chunithm Plus" },
   { value: "Air", label: "Air" },
@@ -57,76 +55,66 @@ function SearchBar({
   onOmnimixChange,
   setIsModalOpen,
 }: Props) {
-  {
-    /* Filter by Category, Version, Omnimix */
-  }
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
-      {/* Search bar - stays on its own line */}
-      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-        <input
-          type="text"
-          value={filterText}
-          placeholder="Search for a song or artist"
+    <div className="grid grid-cols-3 gap-4 items-center">
+      {/* Search input and Randomizer button */}
+      <div className="col-span-2">
+        <Input
+          label="Search for a song or artist"
           onChange={(e) => onFilterTextChange(e.target.value)}
-          style={{ flex: 1 }}
         />
-        <button
-          className="btn btn-primary"
-          style={{ marginLeft: "10px" }}
-          onClick={() => setIsModalOpen(true)}
-        >
+      </div>
+
+      <div>
+        <Button onPress={() => setIsModalOpen(true)} color="primary">
           Open Randomizer
-        </button>
+        </Button>
       </div>
-      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-        {/* Possible Component? */}
-        <Select
-          options={categories}
-          placeholder="Category"
-          value={categories.find((option) => option.value === filterCategory)}
-          onChange={(selectedOption) =>
-            onCategoryChange(selectedOption ? selectedOption.value : "")
-          }
-          styles={{
-            menuList: (provided) => ({
-              ...provided,
-              maxHeight: 200,
-            }),
-          }}
-          isClearable={true}
-        />
 
-        <Select
-          options={options}
-          placeholder="Version"
-          value={options.find((option) => option.value === filterVersion)}
-          onChange={(selectedOption) =>
-            onVersionChange(selectedOption ? selectedOption.value : "")
-          }
-          styles={{
-            menuList: (provided) => ({
-              ...provided,
-              maxHeight: 200,
-            }),
-          }}
-          isClearable={true}
-        />
-
-        <div style={{ display: "flex", alignItems: "center" }} className="form-check form-switch">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id="checkmarkFilter"
-            checked={filterOmnimix}
-            onChange={(e) => onOmnimixChange(e.target.checked)}
-          />
-          <label htmlFor="checkmarkFilter" style={{ marginLeft: "8px" }}>
-            Include Omnimix Songs
-          </label>
-        </div>
+      {/* Filters */}
+      <div>
+        <Select label="Category">
+          {categories.map((option) => (
+            <SelectItem
+              key={option.value}
+              onClick={() =>
+                onCategoryChange(
+                  filterCategory === option.value ? "" : option.value
+                )
+              }
+            >
+              {option.label}
+            </SelectItem>
+          ))}
+        </Select>
       </div>
-    </form>
+
+      <div>
+        <Select label="Version">
+          {versions.map((option) => (
+            <SelectItem
+              key={option.value}
+              onClick={() =>
+                onVersionChange(
+                  filterVersion === option.value ? "" : option.value
+                )
+              }
+            >
+              {option.label}
+            </SelectItem>
+          ))}
+        </Select>
+      </div>
+
+      <div>
+        <Switch
+          isSelected={filterOmnimix}
+          onChange={(e) => onOmnimixChange(e.target.checked)}
+        >
+          Include Omnimix Songs
+        </Switch>
+      </div>
+    </div>
   );
 }
 

@@ -1,5 +1,13 @@
 import { Difficulty } from "../types";
 import DifficultyListDisplay from "./DifficultyListDisplay";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Image,
+  Button,
+} from "@heroui/react";
 
 interface Props {
   songName: string;
@@ -23,92 +31,89 @@ function GameCard({
   expertChartLink,
 }: Props) {
   return (
-    <div className="card" style={{ width: "14rem", height: "auto" }}>
-      <img
-        src={image}
-        className="card-img-top"
-        alt={songName}
-        style={{
-          height: "150px",
-          width: "100%", // Ensure the image takes full width of the card
-          objectFit: "contain", // This ensures the whole image fits within the container without cutting off
-        }}
-      />
-      <div className="card-body" style={{ padding: "0.5rem" }}>
-        <h5 className="card-title" style={{ fontSize: "1rem" }}>
-          {songName}
-        </h5>
-        <p className="card-text" style={{ fontSize: "0.9rem" }}>
-          {artist}
-        </p>
-        <h6 className="card-text" style={{ fontSize: "0.8rem" }}>
-          Difficulties
-        </h6>
-        <DifficultyListDisplay difficultyList={difficultyList} />
-        <div className="d-flex flex-column gap-1">
-          {songLink ? (
-            <a
-              href={songLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary w-100 btn-sm"
-            >
-              View Song
-            </a>
-          ) : (
-            <button className="btn btn-secondary w-100 btn-sm" disabled>
-              No Link Available
-            </button>
-          )}
-          <div className="d-flex gap-1">
+    <div className="bg-white shadow-md rounded-lg overflow-hidden w-56">
+      <Card>
+        <CardHeader className="flex-col items-start">
+          <h5 className="text-base font-semibold">{songName}</h5>
+          <p className="text-sm text-gray-600">{artist}</p>
+        </CardHeader>
+        <CardBody>
+          <Image alt="Card background" src={image} width={275} />
+          <DifficultyListDisplay difficultyList={difficultyList} />
+        </CardBody>
+        <CardFooter>
+          <div className="flex flex-col gap-2 mt-2 mx-auto w-full">
+            {songLink ? (
+              <Button
+                href={songLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-blue-600 hover:bg-blue-700 text-white text-sm py-1 rounded text-center w-full"
+              >
+                View Song
+              </Button>
+            ) : (
+              <Button
+                disabled
+                className="bg-gray-400 text-white text-sm py-1 rounded cursor-not-allowed w-full"
+              >
+                No Link Available
+              </Button>
+            )}
+
+            {/* Ultima on its own line */}
             {ultimaChartLink && (
-              <a
+              <Button
                 href={ultimaChartLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-warning flex-fill btn-sm"
+                className="bg-yellow-500 hover:bg-yellow-600 text-white text-xs px-2 py-1 rounded w-full text-center"
               >
                 Ultima
-              </a>
-            )}
-            {masterChartLink ? (
-              <a
-                href={masterChartLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-info flex-fill btn-sm"
-              >
-                Master
-              </a>
-            ) : (
-              <button
-                className="btn btn-outline-info flex-fill btn-sm"
-                disabled
-              >
-                No Master
-              </button>
+              </Button>
             )}
 
-            {expertChartLink ? (
-              <a
-                href={expertChartLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-danger flex-fill btn-sm"
-              >
-                Expert
-              </a>
-            ) : (
-              <button
-                className="btn btn-outline-danger flex-fill btn-sm"
-                disabled
-              >
-                No Expert
-              </button>
-            )}
+            {/* Master + Expert side by side */}
+            <div className="flex gap-1 w-full">
+              {masterChartLink ? (
+                <Button
+                  href={masterChartLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-cyan-600 hover:bg-cyan-700 text-white text-xs px-2 py-1 rounded flex-1 text-center"
+                >
+                  Master
+                </Button>
+              ) : (
+                <button
+                  disabled
+                  className="border border-cyan-600 text-cyan-600 text-xs px-2 py-1 rounded flex-1 cursor-not-allowed"
+                >
+                  No Master
+                </button>
+              )}
+
+              {expertChartLink ? (
+                <Button
+                  href={expertChartLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-red-600 hover:bg-red-700 text-white text-xs px-2 py-1 rounded flex-1 text-center"
+                >
+                  Expert
+                </Button>
+              ) : (
+                <button
+                  disabled
+                  className="border border-red-600 text-red-600 text-xs px-2 py-1 rounded flex-1 cursor-not-allowed"
+                >
+                  No Expert
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      </div>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Form, Input, Button, Switch, Select, SelectItem } from "@heroui/react";
+import {Input, Button, Switch, Select, SelectItem } from "@heroui/react";
 
 interface Props {
   filterText: string;
@@ -45,7 +45,6 @@ const versions = [
 ];
 
 function SearchBar({
-  filterText,
   onFilterTextChange,
   filterCategory,
   onCategoryChange,

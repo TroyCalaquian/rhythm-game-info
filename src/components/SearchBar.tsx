@@ -56,68 +56,65 @@ function SearchBar({
   setIsModalOpen,
 }: Props) {
   return (
-    <Form
-      onSubmit={(e) => e.preventDefault()}
-      className="grid grid-cols-3 gap-4 items-center"
-    >
+    <div className="grid grid-cols-3 gap-4 items-center">
       {/* Search input and Randomizer button */}
       <div className="col-span-2">
         <Input
-          type="text"
-          value={filterText}
-          placeholder="Search for a song or artist"
+          label="Search for a song or artist"
           onChange={(e) => onFilterTextChange(e.target.value)}
         />
       </div>
 
       <div>
-        <Button onPress={() => setIsModalOpen(true)} color="primary">Open Randomizer</Button>
+        <Button onPress={() => setIsModalOpen(true)} color="primary">
+          Open Randomizer
+        </Button>
       </div>
 
       {/* Filters */}
-        <div>
-          <Select label="Category">
-            {categories.map((option) => (
-              <SelectItem
-                key={option.value}
-                onClick={() =>
-                  onCategoryChange(
-                    filterCategory === option.value ? "" : option.value
-                  )
-                }
-              >
-                {option.label}
-              </SelectItem>
-            ))}
-          </Select>
-        </div>
+      <div>
+        <Select label="Category">
+          {categories.map((option) => (
+            <SelectItem
+              key={option.value}
+              onClick={() =>
+                onCategoryChange(
+                  filterCategory === option.value ? "" : option.value
+                )
+              }
+            >
+              {option.label}
+            </SelectItem>
+          ))}
+        </Select>
+      </div>
 
-        <div>
-          <Select label="Version">
-            {versions.map((option) => (
-              <SelectItem
-                key={option.value}
-                onClick={() =>
-                  onVersionChange(
-                    filterVersion === option.value ? "" : option.value
-                  )
-                }
-              >
-                {option.label}
-              </SelectItem>
-            ))}
-          </Select>
-        </div>
+      <div>
+        <Select label="Version">
+          {versions.map((option) => (
+            <SelectItem
+              key={option.value}
+              onClick={() =>
+                onVersionChange(
+                  filterVersion === option.value ? "" : option.value
+                )
+              }
+            >
+              {option.label}
+            </SelectItem>
+          ))}
+        </Select>
+      </div>
 
-        <div>
-          <Switch
-            isSelected={filterOmnimix}
-            onChange={(e) => onOmnimixChange(e.target.checked)}
-          >
-            Include Omnimix Songs
-          </Switch>
-        </div>
-    </Form>
+      <div>
+        <Switch
+          isSelected={filterOmnimix}
+          onChange={(e) => onOmnimixChange(e.target.checked)}
+        >
+          Include Omnimix Songs
+        </Switch>
+      </div>
+    </div>
   );
 }
 

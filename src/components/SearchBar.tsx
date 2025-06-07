@@ -1,12 +1,4 @@
-// import Select from "react-select";
-import {
-  Form,
-  Input,
-  Button,
-  Switch,
-  Select,
-  SelectItem,
-} from "@heroui/react";
+import { Form, Input, Button, Switch, Select, SelectItem } from "@heroui/react";
 
 interface Props {
   filterText: string;
@@ -17,12 +9,10 @@ interface Props {
   onVersionChange: (version: string) => void;
   filterOmnimix: boolean;
   onOmnimixChange: (value: boolean) => void;
-  isModalOpen: boolean;
   setIsModalOpen: (value: boolean) => void;
 }
 
 const categories = [
-  { value: "", label: "Category" },
   { value: "P&A", label: "Pops and Anime" },
   { value: "NN", label: "niconico" },
   { value: "TP", label: "Touhou Project" },
@@ -33,7 +23,6 @@ const categories = [
 ];
 
 const versions = [
-  { value: "", label: "Version" },
   { value: "Chunithm", label: "Chunithm" },
   { value: "Chunithm Plus", label: "Chunithm Plus" },
   { value: "Air", label: "Air" },
@@ -64,31 +53,38 @@ function SearchBar({
   onVersionChange,
   filterOmnimix,
   onOmnimixChange,
-  isModalOpen,
   setIsModalOpen,
 }: Props) {
   return (
-    <Form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+    <Form
+      onSubmit={(e) => e.preventDefault()}
+      className="grid grid-cols-3 gap-4 items-center"
+    >
       {/* Search input and Randomizer button */}
-      <div className="flex gap-3 items-center">
+      <div className="col-span-2">
         <Input
           type="text"
           value={filterText}
           placeholder="Search for a song or artist"
           onChange={(e) => onFilterTextChange(e.target.value)}
-          className="flex-1"
         />
-        <Button onPress={() => setIsModalOpen(true)}>Open Randomizer</Button>
+      </div>
+
+      <div>
+        <Button onPress={() => setIsModalOpen(true)} color="primary">Open Randomizer</Button>
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-3 items-center">
-        <div className="min-w-[180px]">
-          <Select label="Category" className="max-w-xs">
+        <div>
+          <Select label="Category">
             {categories.map((option) => (
               <SelectItem
                 key={option.value}
-                onClick={() => onCategoryChange(option.value)}
+                onClick={() =>
+                  onCategoryChange(
+                    filterCategory === option.value ? "" : option.value
+                  )
+                }
               >
                 {option.label}
               </SelectItem>
@@ -96,12 +92,16 @@ function SearchBar({
           </Select>
         </div>
 
-        <div className="min-w-[180px]">
-          <Select label="Version" className="max-w-xs">
+        <div>
+          <Select label="Version">
             {versions.map((option) => (
               <SelectItem
                 key={option.value}
-                onClick={() => onVersionChange(option.value)}
+                onClick={() =>
+                  onVersionChange(
+                    filterVersion === option.value ? "" : option.value
+                  )
+                }
               >
                 {option.label}
               </SelectItem>
@@ -109,15 +109,14 @@ function SearchBar({
           </Select>
         </div>
 
-        {/* Omnimix Toggle */}
-        <div className="flex items-center gap-2">
+        <div>
           <Switch
             isSelected={filterOmnimix}
-            onChange={(e) => onOmnimixChange(e.target.checked)}>
+            onChange={(e) => onOmnimixChange(e.target.checked)}
+          >
             Include Omnimix Songs
           </Switch>
         </div>
-      </div>
     </Form>
   );
 }

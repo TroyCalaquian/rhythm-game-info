@@ -13,7 +13,6 @@ import GameCard from "./GameCard";
 
 interface Props {
   isModalOpen: boolean;
-  setIsModalOpen: (value: boolean) => void;
   onOpenChange: (isOpen: boolean) => void;
   selectedClass: string;
   setSelectedClass: (value: string) => void;
@@ -22,7 +21,6 @@ interface Props {
 
 function RandomizerModal({
   isModalOpen,
-  setIsModalOpen,
   selectedClass,
   onOpenChange,
   setSelectedClass,

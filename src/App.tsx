@@ -67,7 +67,6 @@ function App() {
           onVersionChange={setVersionCategory}
           filterOmnimix={filterOmnimix}
           onOmnimixChange={setfilterOmnimix}
-          isModalOpen={isOpen}
           setIsModalOpen={onOpen}
         />
       </div>
@@ -112,7 +111,6 @@ function App() {
 
       <RandomizerModal
         isModalOpen={isOpen}
-        setIsModalOpen={onOpen}
         onOpenChange={onOpenChange}
         selectedClass={selectedClass}
         setSelectedClass={setSelectedClass}

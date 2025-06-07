@@ -3,9 +3,8 @@ import {
   Form,
   Input,
   Button,
-  Checkbox,
+  Switch,
   Select,
-  SelectSection,
   SelectItem,
 } from "@heroui/react";
 
@@ -18,6 +17,7 @@ interface Props {
   onVersionChange: (version: string) => void;
   filterOmnimix: boolean;
   onOmnimixChange: (value: boolean) => void;
+  isModalOpen: boolean;
   setIsModalOpen: (value: boolean) => void;
 }
 
@@ -64,6 +64,7 @@ function SearchBar({
   onVersionChange,
   filterOmnimix,
   onOmnimixChange,
+  isModalOpen,
   setIsModalOpen,
 }: Props) {
   return (
@@ -77,13 +78,13 @@ function SearchBar({
           onChange={(e) => onFilterTextChange(e.target.value)}
           className="flex-1"
         />
-        <Button onClick={() => setIsModalOpen(true)}>Open Randomizer</Button>
+        <Button onPress={() => setIsModalOpen(true)}>Open Randomizer</Button>
       </div>
 
       {/* Filters */}
       <div className="flex flex-wrap gap-3 items-center">
         <div className="min-w-[180px]">
-          <Select label="Category" placeholder="Category" className="max-w-xs">
+          <Select label="Category" className="max-w-xs">
             {categories.map((option) => (
               <SelectItem
                 key={option.value}
@@ -96,7 +97,7 @@ function SearchBar({
         </div>
 
         <div className="min-w-[180px]">
-          <Select label="Version" placeholder="Version" className="max-w-xs">
+          <Select label="Version" className="max-w-xs">
             {versions.map((option) => (
               <SelectItem
                 key={option.value}
@@ -110,12 +111,11 @@ function SearchBar({
 
         {/* Omnimix Toggle */}
         <div className="flex items-center gap-2">
-          <Checkbox
-            checked={filterOmnimix}
-            onChange={(e) => onOmnimixChange(e.target.checked)}
-          >
+          <Switch
+            isSelected={filterOmnimix}
+            onChange={(e) => onOmnimixChange(e.target.checked)}>
             Include Omnimix Songs
-          </Checkbox>
+          </Switch>
         </div>
       </div>
     </Form>

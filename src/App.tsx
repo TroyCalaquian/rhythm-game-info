@@ -1,20 +1,17 @@
 import GameCard from "./components/GameCard";
 import RandomizerModal from "./components/RandomizerModal";
 import SearchBar from "./components/SearchBar";
-import Modal from "react-modal";
 import { rhythmGameSong } from "./types";
 import { useEffect, useState } from "react";
 import supabase from "./components/supabaseClient";
-import { Pagination } from "@heroui/react";
-
-Modal.setAppElement("#root");
+import { Pagination, useDisclosure } from "@heroui/react";
 
 function App() {
   const [filterText, setFilterText] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
   const [filterVersion, setVersionCategory] = useState("");
   const [filterOmnimix, setfilterOmnimix] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [selectedClass, setSelectedClass] = useState("1");
   const [rhythmGameSongData, setRhythmGameSongData] = useState<rhythmGameSong[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -70,7 +67,8 @@ function App() {
           onVersionChange={setVersionCategory}
           filterOmnimix={filterOmnimix}
           onOmnimixChange={setfilterOmnimix}
-          setIsModalOpen={setIsModalOpen}
+          isModalOpen={isOpen}
+          setIsModalOpen={onOpen}
         />
       </div>
 
@@ -113,8 +111,9 @@ function App() {
       </div>
 
       <RandomizerModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
+        isModalOpen={isOpen}
+        setIsModalOpen={onOpen}
+        onOpenChange={onOpenChange}
         selectedClass={selectedClass}
         setSelectedClass={setSelectedClass}
         rhythmGameSongs={rhythmGameSongData}

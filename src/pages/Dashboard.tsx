@@ -1,4 +1,3 @@
-import React from "react";
 import supabase from "../helper/supabaseClient";
 import {Button} from "@heroui/react"
 import { useNavigate } from "react-router-dom";
@@ -16,6 +15,7 @@ function Dashboard() {
   return (
     <div>
       <h1>Hello, you are logged in.</h1>
+      <Button onPress={() => navigate("/AddSong")}>Add song</Button>
       <Button color="primary" onPress={() => signOut()}>
         Sign out
       </Button>

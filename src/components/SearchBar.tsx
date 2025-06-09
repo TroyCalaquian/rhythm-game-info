@@ -71,6 +71,7 @@ function SearchBar({
       </div>
 
       {/* Filters */}
+      {/* TODO: Use onSelectionChange and selectedKeys */}
       <div>
         <Select label="Category">
           {categories.map((option) => (

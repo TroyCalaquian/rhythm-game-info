@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import supabase from "../helper/supabaseClient";
 import { Form, Input, Button } from "@heroui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();

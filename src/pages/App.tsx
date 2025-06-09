@@ -10,8 +10,7 @@ import {
   Navbar,
   NavbarBrand,
   NavbarContent,
-  NavbarItem,
-  Button,
+  NavbarItem
 } from "@heroui/react";
 import {Link} from "react-router-dom";
 

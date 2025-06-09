@@ -7,6 +7,7 @@ import Login from "./pages/Login.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Register from "./pages/Register.tsx";
 import Wrapper from "./pages/Wrapper.tsx";
+import AddSong from "./pages/AddSong.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")!).render(
             </Wrapper>
           }
         />
+        <Route path="/AddSong" element={<Wrapper><AddSong/></Wrapper>}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import supabase from "../helper/supabaseClient";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function Wrapper({ children }: React.PropsWithChildren<{}>) {
   const [authenticated, setAuthenticated] = useState(false);

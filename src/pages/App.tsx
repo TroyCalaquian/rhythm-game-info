@@ -1,19 +1,30 @@
-import GameCard from "./components/GameCard";
-import RandomizerModal from "./components/RandomizerModal";
-import SearchBar from "./components/SearchBar";
-import { rhythmGameSong } from "./types";
+import GameCard from "../components/GameCard";
+import RandomizerModal from "../components/RandomizerModal";
+import SearchBar from "../components/SearchBar";
+import { rhythmGameSong } from "../types";
 import { useEffect, useState } from "react";
-import supabase from "./components/supabaseClient";
-import { Pagination, useDisclosure } from "@heroui/react";
+import supabase from "../helper/supabaseClient";
+import {
+  Pagination,
+  useDisclosure,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Button,
+} from "@heroui/react";
+import {Link} from "react-router-dom";
 
 function App() {
   const [filterText, setFilterText] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
   const [filterVersion, setVersionCategory] = useState("");
   const [filterOmnimix, setfilterOmnimix] = useState(false);
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedClass, setSelectedClass] = useState("1");
-  const [rhythmGameSongData, setRhythmGameSongData] = useState<rhythmGameSong[]>([]);
+  const [rhythmGameSongData, setRhythmGameSongData] = useState<
+    rhythmGameSong[]
+  >([]);
   const [currentPage, setCurrentPage] = useState(1);
   const songsPerPage = 12;
 
@@ -57,6 +68,19 @@ function App() {
 
   return (
     <>
+    <Navbar>
+      <NavbarBrand>
+        <p>Chunithm</p>
+      </NavbarBrand>
+      <NavbarContent justify="end">
+        <NavbarItem>
+          <Link to="/register">Register</Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link to="/login">Login</Link>
+        </NavbarItem>
+      </NavbarContent>
+    </Navbar>
       <div className="max-w-7xl mx-auto px-4 pt-3 flex justify-center">
         <SearchBar
           filterText={filterText}
@@ -76,7 +100,7 @@ function App() {
           <Pagination
             showControls
             total={totalPages}
-            page={currentPage}
+            initialPage={currentPage}
             onChange={(page) => setCurrentPage(page)}
             siblings={1}
             boundaries={1}

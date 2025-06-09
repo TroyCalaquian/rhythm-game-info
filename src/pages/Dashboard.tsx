@@ -1,9 +1,26 @@
-import React from 'react'
+import React from "react";
+import supabase from "../helper/supabaseClient";
+import {Button} from "@heroui/react"
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+
+  const navigate = useNavigate();
+
+  const signOut = async () => {
+    const {error} = await supabase.auth.signOut();
+    if (error) throw error;
+    navigate("/")
+  }
+
   return (
-    <div>Dashboard</div>
-  )
+    <div>
+      <h1>Hello, you are logged in.</h1>
+      <Button color="primary" onPress={() => signOut()}>
+        Sign out
+      </Button>
+    </div>
+  );
 }
 
-export default Dashboard
+export default Dashboard;

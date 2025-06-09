@@ -146,18 +146,34 @@ function AddSong() {
       })
       .filter(Boolean); // remove nulls
 
+    // Create an object with all form values except imageFile
+    const formData = {
+      songName,
+      artist,
+      difficultyList,
+      songLink,
+      ultimaLink,
+      masterLink,
+      expertLink,
+      category,
+      version,
+      omnimix,
+    };
+
+    console.log("Form data (without image):", formData);
+
     const { error } = await supabase.from("rhythmGameSongData").insert([
       {
-        songName,
-        artist,
+        songName: songName,
+        artist: artist,
         difficultyList,
         songLink,
-        ultimaLink,
-        masterLink,
-        expertLink,
-        category,
-        version,
-        omnimix,
+        ultimaChartLink: ultimaLink,
+        masterChartLink: masterLink,
+        expertChartLink: expertLink,
+        category: category,
+        version: version,
+        omnimix: omnimix,
         image: imageUrl,
       },
     ]);
@@ -177,6 +193,14 @@ function AddSong() {
         Master: { value: "", faceValue: "" },
         Ultima: { value: "", faceValue: "" },
       });
+      setSongLink("");
+      setUltimaLink("");
+      setMasterLink("");
+      setExpertLink("");
+      // setCategory(new Set([]));
+      // setVersion(new Set([]));
+      setOmnimix(false);
+      setImageFile(null);
     }
   };
 
@@ -267,12 +291,9 @@ function AddSong() {
           label="Category"
           isRequired
           placeholder="Select a category"
-          selectedKeys={category}
-          onSelectionChange={(key) => setCategory(key as string)}
-          name="category"
         >
           {categories.map((cat) => (
-            <SelectItem key={cat.value}>{cat.label}</SelectItem>
+            <SelectItem key={cat.value} onClick={() => setCategory(cat.value)}>{cat.label}</SelectItem>
           ))}
         </Select>
 
@@ -280,12 +301,9 @@ function AddSong() {
           label="Version"
           isRequired
           placeholder="Select a version"
-          selectedKeys={version}
-          onSelectionChange={(key) => setVersion(key as string)}
-          name="category"
         >
           {versions.map((ver) => (
-            <SelectItem key={ver.value}>{ver.label}</SelectItem>
+            <SelectItem key={ver.value} onClick={() => setVersion(ver.value)}>{ver.label}</SelectItem>
           ))}
         </Select>
 

@@ -86,9 +86,8 @@ Use the following command to run the project: `npm run dev`
 
 1. Make it mobile friendly (only works well in desktop right now)
 2. Possibly add more songs on different games
-3. ~~Try to make all the song titles to English (yay....)~~ This one is on the database side anyways
 4. Allow songs to be searched with aliases (Change to backend, but should make songs easier to look for)
-5. Make admin panel for adding songs (This will make life a lot easier when going back to the top part)
+5. ~~ Make admin panel for adding songs (This will make life a lot easier when going back to the top part)~~
 6. Put front facing text into localization document (Possibly support multiple languages?)
 7. Link to topdown view of chart
 8. Link/refer to codex entry (VERY UNLIKELY)

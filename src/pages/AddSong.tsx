@@ -73,7 +73,6 @@ function AddSong() {
   const [omnimix, setOmnimix] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-
   // Difficulty values
   const [difficulties, setDifficulties] = useState<DifficultyMap>({
     Basic: { value: "", faceValue: "" },
@@ -102,6 +101,29 @@ function AddSong() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    let imageUrl = null;
+
+    if (imageFile) {
+      const fileExt = imageFile.name.split(".").pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+      const { data, error: uploadError } = await supabase.storage
+        .from("song-images")
+        .upload(fileName, imageFile);
+
+      if (uploadError) {
+        console.error("Image upload failed:", uploadError);
+        alert("Image upload failed");
+        return;
+      }
+
+      // Get the public URL
+      const { data: publicUrlData } = supabase.storage
+        .from("song-images")
+        .getPublicUrl(fileName);
+
+      imageUrl = publicUrlData.publicUrl;
+    }
+
     // Validate required levels
     for (const level of levelNames) {
       if (level === "Ultima") continue;
@@ -124,31 +146,38 @@ function AddSong() {
       })
       .filter(Boolean); // remove nulls
 
-    // const { error } = await supabase.from("songs").insert([
-    //   {
-    //     songName,
-    //     artist,
-    //     difficultyList,
-    //     // Add additional fields here as needed
-    //   },
-    // ]);
+    const { error } = await supabase.from("rhythmGameSongData").insert([
+      {
+        songName,
+        artist,
+        difficultyList,
+        songLink,
+        ultimaLink,
+        masterLink,
+        expertLink,
+        category,
+        version,
+        omnimix,
+        image: imageUrl,
+      },
+    ]);
 
-    // if (error) {
-    //   console.error("Insert error:", error);
-    //   alert("Something went wrong while saving the song.");
-    // } else {
-    //   alert("Song successfully added!");
-    //   // Reset form if needed
-    //   setSongName("");
-    //   setArtist("");
-    //   setDifficulties({
-    //     Basic: { value: "", faceValue: "" },
-    //     Advanced: { value: "", faceValue: "" },
-    //     Expert: { value: "", faceValue: "" },
-    //     Master: { value: "", faceValue: "" },
-    //     Ultima: { value: "", faceValue: "" },
-    //   });
-    // }
+    if (error) {
+      console.error("Insert error:", error);
+      alert("Something went wrong while saving the song.");
+    } else {
+      alert("Song successfully added!");
+      // Reset form if needed
+      setSongName("");
+      setArtist("");
+      setDifficulties({
+        Basic: { value: "", faceValue: "" },
+        Advanced: { value: "", faceValue: "" },
+        Expert: { value: "", faceValue: "" },
+        Master: { value: "", faceValue: "" },
+        Ultima: { value: "", faceValue: "" },
+      });
+    }
   };
 
   return (
@@ -264,7 +293,25 @@ function AddSong() {
           Omnimix
         </Checkbox>
 
-        
+        <label className="block text-sm font-medium text-gray-700">
+          Upload Image
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              if (e.target.files && e.target.files[0]) {
+                setImageFile(e.target.files[0]);
+              }
+            }}
+            className="mt-2 block w-full text-sm text-gray-500
+               file:mr-4 file:py-2 file:px-4
+               file:rounded-md file:border file:border-gray-300
+               file:text-sm file:font-semibold
+               file:bg-gray-50 file:text-gray-700
+               hover:file:bg-gray-100
+               focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </label>
 
         {/* Submit Button */}
         <Button type="submit" color="primary">

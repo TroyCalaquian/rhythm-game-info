@@ -38,7 +38,7 @@ function GameCard({
           <p className="text-sm text-gray-600">{artist}</p>
         </CardHeader>
         <CardBody>
-          <Image alt="Card background" src={image} width={275} />
+          <Image alt={songName} src={image} width={275} />
           <DifficultyListDisplay difficultyList={difficultyList} />
         </CardBody>
         <CardFooter>

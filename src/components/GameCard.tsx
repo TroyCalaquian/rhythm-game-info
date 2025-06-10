@@ -1,4 +1,4 @@
-import { Difficulty } from "../types";
+import { Difficulty } from "../helper/types";
 import DifficultyListDisplay from "./DifficultyListDisplay";
 import {
   Card,

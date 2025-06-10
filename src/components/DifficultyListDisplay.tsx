@@ -1,4 +1,4 @@
-import { Difficulty } from "../types";
+import { Difficulty } from "../helper/types";
 
 interface Props {
   difficultyList: Difficulty[];

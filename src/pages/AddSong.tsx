@@ -8,6 +8,8 @@ import {
   SelectItem,
   Checkbox,
 } from "@heroui/react";
+import categories from "../helper/categories";
+import versions from "../helper/versions";
 
 type DifficultyFormValue = {
   value: string;
@@ -26,38 +28,6 @@ const levelNames: LevelName[] = [
   "Expert",
   "Master",
   "Ultima",
-];
-
-const categories = [
-  { value: "P&A", label: "Pops and Anime" },
-  { value: "NN", label: "niconico" },
-  { value: "TP", label: "Touhou Project" },
-  { value: "Variety", label: "Variety" },
-  { value: "GekiMai", label: "GekiMai" },
-  { value: "Irodorimidori", label: "Irodorimidori" },
-  { value: "Original", label: "Original" },
-];
-
-const versions = [
-  { value: "Chunithm", label: "Chunithm" },
-  { value: "Chunithm Plus", label: "Chunithm Plus" },
-  { value: "Air", label: "Air" },
-  { value: "Air Plus", label: "Air Plus" },
-  { value: "Star", label: "Star" },
-  { value: "Star Plus", label: "Star Plus" },
-  { value: "Amazon", label: "Amazon" },
-  { value: "Amazon Plus", label: "Amazon Plus" },
-  { value: "Crystal", label: "Crystal" },
-  { value: "Crystal Plus", label: "Crystal Plus" },
-  { value: "Paradise", label: "Paradise" },
-  { value: "Paradise Lost", label: "Paradise Lost" },
-  { value: "New", label: "New" },
-  { value: "New Plus", label: "New Plus" },
-  { value: "Sun", label: "Sun" },
-  { value: "Sun Plus", label: "Sun Plus" },
-  { value: "Luminous", label: "Luminous" },
-  { value: "Luminous Plus", label: "Luminous Plus" },
-  { value: "Verse", label: "Verse" },
 ];
 
 function AddSong() {

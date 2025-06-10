@@ -1,7 +1,7 @@
 import GameCard from "../components/GameCard";
 import RandomizerModal from "../components/RandomizerModal";
 import SearchBar from "../components/SearchBar";
-import { rhythmGameSong } from "../types";
+import { rhythmGameSong } from "../helper/types";
 import { useEffect, useState } from "react";
 import supabase from "../helper/supabaseClient";
 import {

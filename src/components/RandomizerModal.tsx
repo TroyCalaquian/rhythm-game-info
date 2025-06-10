@@ -1,4 +1,4 @@
-import { rhythmGameSong } from "../types";
+import { rhythmGameSong } from "../helper/types";
 import {
   Modal,
   ModalContent,

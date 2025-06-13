@@ -2,7 +2,7 @@ import GameCard from "../components/GameCard";
 import RandomizerModal from "../components/RandomizerModal";
 import SearchBar from "../components/SearchBar";
 import { rhythmGameSong } from "../helper/types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import supabase from "../helper/supabaseClient";
 import {
   Pagination,
@@ -10,9 +10,14 @@ import {
   Navbar,
   NavbarBrand,
   NavbarContent,
-  NavbarItem
+  NavbarItem,
 } from "@heroui/react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 function App() {
   const [filterText, setFilterText] = useState("");
@@ -67,19 +72,19 @@ function App() {
 
   return (
     <>
-    <Navbar>
-      <NavbarBrand>
-        <p>Chunithm</p>
-      </NavbarBrand>
-      <NavbarContent justify="end">
-        <NavbarItem>
-          <Link to="/register">Register</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link to="/login">Login</Link>
-        </NavbarItem>
-      </NavbarContent>
-    </Navbar>
+      <Navbar>
+        <NavbarBrand>
+          <p>Chunithm</p>
+        </NavbarBrand>
+        <NavbarContent justify="end">
+          <NavbarItem>
+            <Link to="/register">Register</Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link to="/login">Login</Link>
+          </NavbarItem>
+        </NavbarContent>
+      </Navbar>
       <div className="max-w-7xl mx-auto px-4 pt-3 flex justify-center">
         <SearchBar
           filterText={filterText}

@@ -1,25 +1,101 @@
 import supabase from "../helper/supabaseClient";
-import {Button} from "@heroui/react"
+import {
+  Button,
+  Table,
+  TableHeader,
+  TableBody,
+  TableColumn,
+  TableRow,
+  TableCell,
+  getKeyValue,
+} from "@heroui/react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { rhythmGameSong } from "../helper/types";
 
 function Dashboard() {
-
   const navigate = useNavigate();
 
-  const signOut = async () => {
-    const {error} = await supabase.auth.signOut();
-    if (error) throw error;
-    navigate("/")
+  const [rhythmGameSongData, setRhythmGameSongData] = useState<
+    rhythmGameSong[]
+  >([]);
+  const [columns, setColumns] = useState<{ key: string; label: string }[]>([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (rhythmGameSongData.length > 0) {
+      const keys = Object.keys(rhythmGameSongData[0]);
+      const formatted = keys.map((key) => ({
+        key,
+        label: key.toUpperCase(), // or format as needed
+      }));
+      setColumns(formatted);
+    }
+  }, [rhythmGameSongData]);
+
+  async function getData() {
+    const { data, error } = await supabase
+      .from("rhythmGameSongData")
+      .select("*")
+      .order("id", { ascending: false });
+    if (error) {
+      console.error("Error fetching data:", error);
+    } else {
+      setRhythmGameSongData(data);
+    }
   }
 
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+    navigate("/");
+  };
+
   return (
-    <div>
-      <h1>Hello, you are logged in.</h1>
-      <Button onPress={() => navigate("/AddSong")}>Add song</Button>
-      <Button color="primary" onPress={() => signOut()}>
-        Sign out
-      </Button>
-    </div>
+    <>
+      <div>
+        <h1>Hello, you are logged in.</h1>
+        <Button onPress={() => navigate("/AddSong")}>Add song</Button>
+        <Button color="primary" onPress={() => signOut()}>
+          Sign out
+        </Button>
+      </div>
+      <Table aria-label="Example table with dynamic content">
+        <TableHeader columns={columns}>
+          {(column) => (
+            <TableColumn key={column.key}>{column.label}</TableColumn>
+          )}
+        </TableHeader>
+        <TableBody items={rhythmGameSongData}>
+          {(item) => (
+            <TableRow key={item.id}>
+              {(columnKey) => {
+                const cellValue = getKeyValue(item, columnKey);
+
+                return (
+                  <TableCell>
+                    {typeof cellValue === "object"
+                      ? Array.isArray(cellValue)
+                        ? cellValue
+                            .map((v, i) =>
+                              typeof v === "object"
+                                ? JSON.stringify(v)
+                                : String(v)
+                            )
+                            .join(", ")
+                        : JSON.stringify(cellValue)
+                      : String(cellValue)}
+                  </TableCell>
+                );
+              }}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </>
   );
 }
 

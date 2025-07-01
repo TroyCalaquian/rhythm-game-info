@@ -58,10 +58,10 @@ function Dashboard() {
     <>
       <div>
         <h1>Hello, you are logged in.</h1>
-        <Button onPress={() => navigate("/AddSong")}>Add song</Button>
-        <Button color="primary" onPress={() => signOut()}>
-          Sign out
+        <Button color="primary" onPress={() => navigate("/CreateSong")}>
+          Add song
         </Button>
+        <Button onPress={() => signOut()}>Sign out</Button>
       </div>
       <Table aria-label="Example table with dynamic content">
         <TableHeader columns={columns}>
@@ -76,18 +76,22 @@ function Dashboard() {
                 const cellValue = getKeyValue(item, columnKey);
 
                 return (
-                  <TableCell>
-                    {typeof cellValue === "object"
-                      ? Array.isArray(cellValue)
-                        ? cellValue
-                            .map((v, i) =>
-                              typeof v === "object"
-                                ? JSON.stringify(v)
-                                : String(v)
-                            )
-                            .join(", ")
-                        : JSON.stringify(cellValue)
-                      : String(cellValue)}
+                  <TableCell className={columnKey === "difficultyList" ? "min-w-[300px]" : ""}>
+                    {columnKey === "difficultyList" &&
+                    Array.isArray(cellValue) ? (
+                      <div className="space-y-1">
+                        {cellValue.map((d: any) => (
+                          <div key={d.levelName}>
+                            <strong>{d.levelName}</strong>: {d.faceValue} (
+                            {parseFloat(d.value).toFixed(1)})
+                          </div>
+                        ))}
+                      </div>
+                    ) : typeof cellValue === "object" ? (
+                      JSON.stringify(cellValue)
+                    ) : (
+                      String(cellValue)
+                    )}
                   </TableCell>
                 );
               }}

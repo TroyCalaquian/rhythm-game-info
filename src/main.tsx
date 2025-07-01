@@ -7,7 +7,9 @@ import Login from "./pages/Login.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Register from "./pages/Register.tsx";
 import Wrapper from "./pages/Wrapper.tsx";
-import AddSong from "./pages/AddSong.tsx";
+import AddSong from "./pages/CreateSong.tsx";
+import UpdateSong from "./pages/UpdateSong.tsx";
+import DeleteSong from "./pages/DeleteSong.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -24,7 +26,30 @@ createRoot(document.getElementById("root")!).render(
             </Wrapper>
           }
         />
-        <Route path="/AddSong" element={<Wrapper><AddSong/></Wrapper>}/>
+        <Route
+          path="/CreateSong"
+          element={
+            <Wrapper>
+              <AddSong />
+            </Wrapper>
+          }
+        />
+        <Route
+          path="/UpdateSong/:id"
+          element={
+            <Wrapper>
+              <UpdateSong />
+            </Wrapper>
+          }
+        />
+        <Route
+          path="/DeleteSong/:id"
+          element={
+            <Wrapper>
+              <DeleteSong />
+            </Wrapper>
+          }
+        />
       </Routes>
     </BrowserRouter>
   </StrictMode>

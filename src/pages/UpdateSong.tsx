@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import supabase from "../helper/supabaseClient";
 import {
   Form,
@@ -30,8 +31,10 @@ const levelNames: LevelName[] = [
   "Ultima",
 ];
 
-function AddSong() {
-  // Song metadata
+function UpdateSong() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [songName, setSongName] = useState("");
   const [artist, setArtist] = useState("");
   const [songLink, setSongLink] = useState("");
@@ -41,7 +44,6 @@ function AddSong() {
   const [category, setCategory] = useState("");
   const [version, setVersion] = useState("");
   const [omnimix, setOmnimix] = useState(false);
-  const [imageFile, setImageFile] = useState<File | null>(null);
 
   // Difficulty values
   const [difficulties, setDifficulties] = useState<DifficultyMap>({
@@ -67,32 +69,59 @@ function AddSong() {
     }));
   };
 
-  // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    let imageUrl = null;
-
-    if (imageFile) {
-      const fileExt = imageFile.name.split(".").pop();
-      const fileName = `${Date.now()}.${fileExt}`;
-      const { error: uploadError } = await supabase.storage
-        .from("song-images")
-        .upload(fileName, imageFile);
-
-      if (uploadError) {
-        console.error("Image upload failed:", uploadError);
-        alert("Image upload failed");
-        return;
-      }
-
-      // Get the public URL
-      const { data: publicUrlData } = supabase.storage
-        .from("song-images")
-        .getPublicUrl(fileName);
-
-      imageUrl = publicUrlData.publicUrl;
+  useEffect(() => {
+    if (!id) {
+      alert("Missing song ID");
+      navigate("/dashboard");
+      return;
     }
+    getData();
+  }, [id]);
+
+  async function getData() {
+    const { data, error } = await supabase
+      .from("rhythmGameSongData")
+      .select("*")
+      .eq("id", id)
+      .single();
+    if (error) {
+      console.error("Error fetching data:", error);
+    } else {
+      setSongName(data.songName);
+      setArtist(data.artist);
+      setSongLink(data.songLink);
+      setUltimaLink(data.ultimaChartLink);
+      setMasterLink(data.masterChartLink);
+      setExpertLink(data.expertChartLink);
+      setCategory(data.category);
+      setVersion(data.version);
+      setOmnimix(data.omnimix);
+
+      const parsedDifficulties: DifficultyMap = {
+        Basic: { value: "", faceValue: "" },
+        Advanced: { value: "", faceValue: "" },
+        Expert: { value: "", faceValue: "" },
+        Master: { value: "", faceValue: "" },
+        Ultima: { value: "", faceValue: "" },
+      };
+
+      data.difficultyList.forEach((diff: any) => {
+        const level = diff.levelName as LevelName;
+        if (parsedDifficulties[level]) {
+          parsedDifficulties[level] = {
+            value: diff.value.toString(),
+            faceValue: diff.faceValue,
+          };
+        }
+      });
+
+      setDifficulties(parsedDifficulties);
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+
+    e.preventDefault();
 
     // Validate required levels
     for (const level of levelNames) {
@@ -116,43 +145,29 @@ function AddSong() {
       })
       .filter(Boolean); // remove nulls
 
-    // Create an object with all form values except imageFile
-    const formData = {
-      songName,
-      artist,
-      difficultyList,
-      songLink,
-      ultimaLink,
-      masterLink,
-      expertLink,
-      category,
-      version,
-      omnimix,
-    };
-
-    console.log("Form data (without image):", formData);
-
-    const { error } = await supabase.from("rhythmGameSongData").insert([
-      {
-        songName: songName,
-        artist: artist,
-        difficultyList,
-        songLink,
-        ultimaChartLink: ultimaLink,
-        masterChartLink: masterLink,
-        expertChartLink: expertLink,
-        category: category,
-        version: version,
-        omnimix: omnimix,
-        image: imageUrl,
-      },
-    ]);
+    const { error } = await supabase
+      .from("rhythmGameSongData")
+      .update([
+        {
+          songName: songName,
+          artist: artist,
+          difficultyList,
+          songLink,
+          ultimaChartLink: ultimaLink,
+          masterChartLink: masterLink,
+          expertChartLink: expertLink,
+          category: category,
+          version: version,
+          omnimix: omnimix,
+        },
+      ])
+      .eq("id", id);
 
     if (error) {
-      console.error("Insert error:", error);
-      alert("Something went wrong while saving the song.");
+      console.error("Update error:", error);
+      alert("Something went wrong while updating the song.");
     } else {
-      alert("Song successfully added!");
+      alert("Song successfully updated!");
       // Reset form if needed
       setSongName("");
       setArtist("");
@@ -170,13 +185,13 @@ function AddSong() {
       // setCategory(new Set([]));
       // setVersion(new Set([]));
       setOmnimix(false);
-      setImageFile(null);
+      navigate("/dashboard");
     }
   };
 
   return (
     <>
-      <h1 className="text-xl font-bold mb-4">Add Song to Database</h1>
+      <h1 className="text-xl font-bold mb-4">Edit Song in Database</h1>
       <Form onSubmit={handleSubmit} className="space-y-6">
         {/* Song Info */}
         <Input
@@ -261,9 +276,12 @@ function AddSong() {
           label="Category"
           isRequired
           placeholder="Select a category"
+          selectedKeys={[category]}
         >
           {categories.map((cat) => (
-            <SelectItem key={cat.value} onClick={() => setCategory(cat.value)}>{cat.label}</SelectItem>
+            <SelectItem key={cat.value} onClick={() => setCategory(cat.value)}>
+              {cat.label}
+            </SelectItem>
           ))}
         </Select>
 
@@ -271,35 +289,18 @@ function AddSong() {
           label="Version"
           isRequired
           placeholder="Select a version"
+          selectedKeys={[version]}
         >
           {versions.map((ver) => (
-            <SelectItem key={ver.value} onClick={() => setVersion(ver.value)}>{ver.label}</SelectItem>
+            <SelectItem key={ver.value} onClick={() => setVersion(ver.value)}>
+              {ver.label}
+            </SelectItem>
           ))}
         </Select>
 
         <Checkbox isSelected={omnimix} onValueChange={setOmnimix}>
           Omnimix
         </Checkbox>
-
-        <label className="block text-sm font-medium text-gray-700">
-          Upload Image
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              if (e.target.files && e.target.files[0]) {
-                setImageFile(e.target.files[0]);
-              }
-            }}
-            className="mt-2 block w-full text-sm text-gray-500
-               file:mr-4 file:py-2 file:px-4
-               file:rounded-md file:border file:border-gray-300
-               file:text-sm file:font-semibold
-               file:bg-gray-50 file:text-gray-700
-               hover:file:bg-gray-100
-               focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
 
         {/* Submit Button */}
         <Button type="submit" color="primary">
@@ -310,4 +311,4 @@ function AddSong() {
   );
 }
 
-export default AddSong;
+export default UpdateSong;

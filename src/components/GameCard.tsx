@@ -64,7 +64,7 @@ function GameCard({
             {/* Ultima on its own line */}
             {ultimaChartLink && (
               <Button
-                onPress={() => window.open(songLink, "_blank", "noopener,noreferrer")}
+                onPress={() => window.open(ultimaChartLink, "_blank", "noopener,noreferrer")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-yellow-500 hover:bg-yellow-600 text-white text-xs px-2 py-1 rounded w-full text-center"
@@ -77,7 +77,7 @@ function GameCard({
             <div className="flex gap-1 w-full">
               {masterChartLink ? (
                 <Button
-                  onPress={() => window.open(songLink, "_blank", "noopener,noreferrer")}
+                  onPress={() => window.open(masterChartLink, "_blank", "noopener,noreferrer")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-cyan-600 hover:bg-cyan-700 text-white text-xs px-2 py-1 rounded flex-1 text-center"
@@ -95,7 +95,7 @@ function GameCard({
 
               {expertChartLink ? (
                 <Button
-                  onPress={() => window.open(songLink, "_blank", "noopener,noreferrer")}
+                  onPress={() => window.open(expertChartLink, "_blank", "noopener,noreferrer")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-red-600 hover:bg-red-700 text-white text-xs px-2 py-1 rounded flex-1 text-center"

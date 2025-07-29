@@ -30,6 +30,7 @@ function SearchBar({
       {/* Search input and Randomizer button */}
       <div className="col-span-2">
         <Input
+          isClearable
           label="Search for a song or artist"
           onChange={(e) => onFilterTextChange(e.target.value)}
         />

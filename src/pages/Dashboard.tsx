@@ -11,13 +11,13 @@ import {
 } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { rhythmGameSong } from "../helper/types";
+import { RhythmGameSong } from "../helper/types";
 
 function Dashboard() {
   const navigate = useNavigate();
 
   const [rhythmGameSongData, setRhythmGameSongData] = useState<
-    rhythmGameSong[]
+    RhythmGameSong[]
   >([]);
   const [columns, setColumns] = useState<{ key: string; label: string }[]>([]);
 

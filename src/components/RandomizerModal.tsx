@@ -1,4 +1,4 @@
-import { rhythmGameSong } from "../helper/types";
+import { RhythmGameSong } from "../helper/types";
 import {
   Modal,
   ModalContent,
@@ -18,7 +18,7 @@ interface Props {
   onOpenChange: (isOpen: boolean) => void;
   selectedClass: string;
   setSelectedClass: (value: string) => void;
-  rhythmGameSongs: rhythmGameSong[];
+  rhythmGameSongs: RhythmGameSong[];
 }
 
 function RandomizerModal({
@@ -37,7 +37,7 @@ function RandomizerModal({
     "6": ["14+", "15", "15+"],
   };
 
-  const [pickedSongs, setPickedSongs] = useState<rhythmGameSong[]>([]);
+  const [pickedSongs, setPickedSongs] = useState<RhythmGameSong[]>([]);
   const [includeOmnimix, setIncludeOmnimix] = useState(false);
 
   useEffect(() => {
@@ -117,7 +117,7 @@ function RandomizerModal({
                 <Button
                   onPress={() => {
                     const classLevels = classFaceValues[selectedClass];
-                    const songsByLevel: { [level: string]: rhythmGameSong[] } =
+                    const songsByLevel: { [level: string]: RhythmGameSong[] } =
                       {};
                     classLevels.forEach((level) => {
                       songsByLevel[level] = [];
@@ -134,7 +134,7 @@ function RandomizerModal({
                       }
                     });
 
-                    const selectedSongs: rhythmGameSong[] = [];
+                    const selectedSongs: RhythmGameSong[] = [];
                     classLevels.forEach((level) => {
                       const songs = songsByLevel[level];
                       if (songs.length > 0) {

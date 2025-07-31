@@ -1,8 +1,8 @@
 import GameCard from "../components/GameCard";
 import RandomizerModal from "../components/RandomizerModal";
 import SearchBar from "../components/SearchBar";
-import { rhythmGameSong } from "../helper/types";
-import { useEffect, useRef, useState } from "react";
+import { RhythmGameSong } from "../helper/types";
+import { useEffect, useRef, useState, useMemo } from "react";
 import supabase from "../helper/supabaseClient";
 import {
   Pagination,
@@ -19,15 +19,24 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
+interface Filters {
+  text: string;
+  category: string;
+  version: string;
+  omnimix: boolean;
+}
+
 function App() {
-  const [filterText, setFilterText] = useState("");
-  const [filterCategory, setFilterCategory] = useState("");
-  const [filterVersion, setVersionCategory] = useState("");
-  const [filterOmnimix, setfilterOmnimix] = useState(false);
+  const [filters, setFilters] = useState<Filters>({
+    text: "",
+    category: "",
+    version: "",
+    omnimix: false
+  });
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedClass, setSelectedClass] = useState("1");
   const [rhythmGameSongData, setRhythmGameSongData] = useState<
-    rhythmGameSong[]
+    RhythmGameSong[]
   >([]);
   const [currentPage, setCurrentPage] = useState(1);
   const songsPerPage = 12;
@@ -37,7 +46,7 @@ function App() {
   }, []);
   useEffect(() => {
     setCurrentPage(1);
-  }, [filterText, filterCategory, filterVersion]);
+  }, [filters.text, filters.category, filters.version]);
 
   async function getData() {
     const { data, error } = await supabase
@@ -51,24 +60,30 @@ function App() {
     }
   }
 
-  const filteredSongs = rhythmGameSongData.filter((item) => {
-    const searchText = filterText.toLowerCase();
-    const matchesSearch =
-      item.songName.toLowerCase().includes(searchText) ||
-      item.artist.toLowerCase().includes(searchText);
+  const filteredSongs = useMemo(() => {
+    return rhythmGameSongData.filter((item) => {
+      const searchText = filters.text.toLowerCase();
+      const matchesSearch =
+        item.songName.toLowerCase().includes(searchText) ||
+        item.artist.toLowerCase().includes(searchText);
 
-    return (
-      matchesSearch &&
-      (!filterCategory || item.category === filterCategory) &&
-      (!filterVersion || item.version === filterVersion) &&
-      (filterOmnimix || !item.omnimix)
-    );
-  });
+      return (
+        matchesSearch &&
+        (!filters.category || item.category === filters.category) &&
+        (!filters.version || item.version === filters.version) &&
+        (filters.omnimix || !item.omnimix)
+      );
+    });
+  }, [rhythmGameSongData, filters]);
 
   const totalPages = Math.ceil(filteredSongs.length / songsPerPage);
   const indexOfLastSong = currentPage * songsPerPage;
   const indexOfFirstSong = indexOfLastSong - songsPerPage;
   const currentSongs = filteredSongs.slice(indexOfFirstSong, indexOfLastSong);
+
+  const updateFilter = (key: keyof Filters, value: string | boolean) => {
+    setFilters(prev => ({ ...prev, [key]: value }));
+  };
 
   return (
     <>
@@ -87,14 +102,14 @@ function App() {
       </Navbar>
       <div className="max-w-7xl mx-auto px-4 pt-3 flex justify-center">
         <SearchBar
-          filterText={filterText}
-          onFilterTextChange={setFilterText}
-          filterCategory={filterCategory}
-          onCategoryChange={setFilterCategory}
-          filterVersion={filterVersion}
-          onVersionChange={setVersionCategory}
-          filterOmnimix={filterOmnimix}
-          onOmnimixChange={setfilterOmnimix}
+          filterText={filters.text}
+          onFilterTextChange={(value) => updateFilter('text', value)}
+          filterCategory={filters.category}
+          onCategoryChange={(value) => updateFilter('category', value)}
+          filterVersion={filters.version}
+          onVersionChange={(value) => updateFilter('version', value)}
+          filterOmnimix={filters.omnimix}
+          onOmnimixChange={(value) => updateFilter('omnimix', value)}
           setIsModalOpen={onOpen}
         />
       </div>
@@ -117,16 +132,7 @@ function App() {
           {currentSongs.length > 0 ? (
             currentSongs.map((item) => (
               <div key={item.id}>
-                <GameCard
-                  songName={item.songName}
-                  artist={item.artist}
-                  image={item.image}
-                  difficultyList={item.difficultyList}
-                  songLink={item.songLink}
-                  ultimaChartLink={item.ultimaChartLink}
-                  masterChartLink={item.masterChartLink}
-                  expertChartLink={item.expertChartLink}
-                />
+                <GameCard song={item} />
               </div>
             ))
           ) : (

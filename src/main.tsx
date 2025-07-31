@@ -5,7 +5,6 @@ import App from "./pages/App.tsx";
 import "./App.css";
 import Login from "./pages/Login.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
-import Register from "./pages/Register.tsx";
 import Wrapper from "./pages/Wrapper.tsx";
 import AddSong from "./pages/CreateSong.tsx";
 import UpdateSong from "./pages/UpdateSong.tsx";
@@ -16,7 +15,6 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/Dashboard"

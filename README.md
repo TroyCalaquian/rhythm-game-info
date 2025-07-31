@@ -92,6 +92,7 @@ Use the following command to run the project: `npm run dev`
 6. Put front facing text into localization document (Possibly support multiple languages?)
 7. Link to topdown view of chart.
 8. Link/refer to codex entry (VERY UNLIKELY)
+9. Change styling to be closer to Chunithm
 
 # Credits
 

@@ -13,9 +13,10 @@ import { useState } from "react";
 
 interface GameCardProps {
   song: RhythmGameSong;
+  selectedDifficulty?: string;
 }
 
-function GameCard({ song }: GameCardProps) {
+function GameCard({ song, selectedDifficulty }: GameCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
@@ -26,6 +27,24 @@ function GameCard({ song }: GameCardProps) {
   const handleImageError = () => {
     setImageError(true);
     setImageLoaded(true);
+  };
+
+  // Helper function to check if a chart button should be highlighted
+  const shouldHighlightChart = (chartType: 'ultima' | 'master' | 'expert') => {
+    if (!selectedDifficulty) return false;
+    
+    // Find the difficulty that matches the selected difficulty
+    const matchingDifficulty = song.difficultyList.find(diff => diff.faceValue === selectedDifficulty);
+    if (!matchingDifficulty) return false;
+    
+    // Map difficulty levels to chart types
+    const difficultyToChart: { [key: string]: string } = {
+      'Ultima': 'ultima',
+      'Master': 'master', 
+      'Expert': 'expert'
+    };
+    
+    return difficultyToChart[matchingDifficulty.levelName] === chartType;
   };
 
   return (
@@ -97,7 +116,7 @@ function GameCard({ song }: GameCardProps) {
         </div>
         
         <div className="mb-4">
-          <DifficultyListDisplay difficultyList={song.difficultyList} />
+          <DifficultyListDisplay difficultyList={song.difficultyList} selectedDifficulty={selectedDifficulty} />
         </div>
       </CardBody>
       
@@ -135,9 +154,13 @@ function GameCard({ song }: GameCardProps) {
               <Button
                 onPress={() => window.open(song.ultimaChartLink, "_blank", "noopener,noreferrer")}
                 color="warning"
-                variant="flat"
+                variant={shouldHighlightChart('ultima') ? "solid" : "flat"}
                 size="sm"
-                className="w-full font-semibold"
+                className={`w-full font-semibold ${
+                  shouldHighlightChart('ultima') 
+                    ? "ring-2 ring-yellow-500 ring-offset-1 shadow-lg" 
+                    : ""
+                }`}
                 startContent={
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -153,9 +176,13 @@ function GameCard({ song }: GameCardProps) {
                 <Button
                   onPress={() => window.open(song.masterChartLink, "_blank", "noopener,noreferrer")}
                   color="secondary"
-                  variant="flat"
+                  variant={shouldHighlightChart('master') ? "solid" : "flat"}
                   size="sm"
-                  className="flex-1 font-semibold"
+                  className={`flex-1 font-semibold ${
+                    shouldHighlightChart('master') 
+                      ? "ring-2 ring-purple-500 ring-offset-1 shadow-lg" 
+                      : ""
+                  }`}
                 >
                   Master
                 </Button>
@@ -174,9 +201,13 @@ function GameCard({ song }: GameCardProps) {
                 <Button
                   onPress={() => window.open(song.expertChartLink, "_blank", "noopener,noreferrer")}
                   color="danger"
-                  variant="flat"
+                  variant={shouldHighlightChart('expert') ? "solid" : "flat"}
                   size="sm"
-                  className="flex-1 font-semibold"
+                  className={`flex-1 font-semibold ${
+                    shouldHighlightChart('expert') 
+                      ? "ring-2 ring-red-500 ring-offset-1 shadow-lg" 
+                      : ""
+                  }`}
                 >
                   Expert
                 </Button>

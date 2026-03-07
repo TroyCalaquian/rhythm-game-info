@@ -25,6 +25,12 @@ interface Props {
   rhythmGameSongs: RhythmGameSong[];
 }
 
+// Interface for songs with their selected difficulty
+interface SongWithDifficulty {
+  song: RhythmGameSong;
+  selectedDifficulty: string;
+}
+
 function RandomizerModal({
   isModalOpen,
   selectedClass,
@@ -41,7 +47,7 @@ function RandomizerModal({
     "6": ["14+", "15", "15+"],
   };
 
-  const [pickedSongs, setPickedSongs] = useState<RhythmGameSong[]>([]);
+  const [pickedSongs, setPickedSongs] = useState<SongWithDifficulty[]>([]);
   const [includeOmnimix, setIncludeOmnimix] = useState(false);
 
   useEffect(() => {
@@ -66,12 +72,15 @@ function RandomizerModal({
       }
     });
 
-    const selectedSongs: RhythmGameSong[] = [];
+    const selectedSongs: SongWithDifficulty[] = [];
     classLevels.forEach((level) => {
       const songs = songsByLevel[level];
       if (songs.length > 0) {
         const randomSong = songs[Math.floor(Math.random() * songs.length)];
-        selectedSongs.push(randomSong);
+        selectedSongs.push({
+          song: randomSong,
+          selectedDifficulty: level
+        });
       }
     });
 
@@ -167,7 +176,19 @@ function RandomizerModal({
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {pickedSongs.map((item, index) => (
                         <div key={index} className="transform transition-all duration-200 hover:scale-105">
-                          <GameCard song={item} />
+                          <div className="relative">
+                            <GameCard song={item.song} selectedDifficulty={item.selectedDifficulty} />
+                            <div className="absolute -top-2 -right-2 z-10">
+                              <Chip 
+                                color="primary" 
+                                variant="solid" 
+                                size="sm"
+                                className="text-xs font-bold shadow-lg"
+                              >
+                                {item.selectedDifficulty}
+                              </Chip>
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>

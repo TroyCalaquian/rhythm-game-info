@@ -1,4 +1,4 @@
-import { Difficulty } from "../types";
+import { Difficulty, RhythmGameSong } from "../helper/types";
 import DifficultyListDisplay from "./DifficultyListDisplay";
 import {
   Card,
@@ -7,114 +7,225 @@ import {
   CardFooter,
   Image,
   Button,
+  Chip,
 } from "@heroui/react";
+import { useState } from "react";
 
-interface Props {
-  songName: string;
-  artist: string;
-  image: string;
-  difficultyList: Difficulty[];
-  songLink: string;
-  ultimaChartLink: string;
-  masterChartLink: string;
-  expertChartLink: string;
+interface GameCardProps {
+  song: RhythmGameSong;
+  selectedDifficulty?: string;
 }
 
-function GameCard({
-  songName,
-  artist,
-  image,
-  difficultyList,
-  songLink,
-  ultimaChartLink,
-  masterChartLink,
-  expertChartLink,
-}: Props) {
+function GameCard({ song, selectedDifficulty }: GameCardProps) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoaded(true);
+  };
+
+  // Helper function to check if a chart button should be highlighted
+  const shouldHighlightChart = (chartType: 'ultima' | 'master' | 'expert') => {
+    if (!selectedDifficulty) return false;
+    
+    // Find the difficulty that matches the selected difficulty
+    const matchingDifficulty = song.difficultyList.find(diff => diff.faceValue === selectedDifficulty);
+    if (!matchingDifficulty) return false;
+    
+    // Map difficulty levels to chart types
+    const difficultyToChart: { [key: string]: string } = {
+      'Ultima': 'ultima',
+      'Master': 'master', 
+      'Expert': 'expert'
+    };
+    
+    return difficultyToChart[matchingDifficulty.levelName] === chartType;
+  };
+
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden w-56">
-      <Card>
-        <CardHeader className="flex-col items-start">
-          <h5 className="text-base font-semibold">{songName}</h5>
-          <p className="text-sm text-gray-600">{artist}</p>
-        </CardHeader>
-        <CardBody>
-          <Image alt="Card background" src={image} width={275} />
-          <DifficultyListDisplay difficultyList={difficultyList} />
-        </CardBody>
-        <CardFooter>
-          <div className="flex flex-col gap-2 mt-2 mx-auto w-full">
-            {songLink ? (
-              <Button
-                href={songLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-600 hover:bg-blue-700 text-white text-sm py-1 rounded text-center w-full"
+    <Card className="h-full bg-white border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden">
+      <CardHeader className="pb-3">
+        <div className="space-y-2">
+          <h5 className="text-lg font-bold text-gray-900 line-clamp-2 leading-tight">
+            {song.songName}
+          </h5>
+          <p className="text-sm text-gray-600 font-medium">
+            {song.artist}
+          </p>
+          <div className="flex gap-2">
+            <Chip 
+              color="primary" 
+              variant="flat" 
+              size="sm"
+              className="text-xs"
+            >
+              {song.category}
+            </Chip>
+            <Chip 
+              color="secondary" 
+              variant="flat" 
+              size="sm"
+              className="text-xs"
+            >
+              {song.version}
+            </Chip>
+            {song.omnimix && (
+              <Chip 
+                color="success" 
+                variant="flat" 
+                size="sm"
+                className="text-xs"
               >
-                View Song
-              </Button>
-            ) : (
+                Omnimix
+              </Chip>
+            )}
+          </div>
+        </div>
+      </CardHeader>
+      
+      <CardBody className="py-3">
+        <div className="relative mb-4">
+          {!imageLoaded && (
+            <div className="w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 animate-pulse rounded-lg flex items-center justify-center">
+              <div className="text-gray-400 text-sm">Loading...</div>
+            </div>
+          )}
+          {imageError ? (
+            <div className="w-full h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg flex items-center justify-center border border-gray-200">
+              <div className="text-center">
+                <svg className="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <div className="text-gray-400 text-sm">No Image</div>
+              </div>
+            </div>
+          ) : (
+            <Image 
+              alt={song.songName} 
+              src={song.image} 
+              className={`w-full h-48 object-cover rounded-lg ${imageLoaded ? 'block' : 'hidden'}`}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+            />
+          )}
+        </div>
+        
+        <div className="mb-4">
+          <DifficultyListDisplay difficultyList={song.difficultyList} selectedDifficulty={selectedDifficulty} />
+        </div>
+      </CardBody>
+      
+      <CardFooter className="pt-0">
+        <div className="flex flex-col gap-2 w-full">
+          {song.songLink ? (
+            <Button
+              onPress={() => window.open(song.songLink, "_blank", "noopener,noreferrer")}
+              color="primary"
+              variant="flat"
+              size="sm"
+              className="w-full font-semibold"
+              startContent={
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              }
+            >
+              View Song
+            </Button>
+          ) : (
+            <Button
+              disabled
+              variant="flat"
+              size="sm"
+              className="w-full"
+            >
+              No Link Available
+            </Button>
+          )}
+
+          {/* Chart Links */}
+          <div className="space-y-2">
+            {song.ultimaChartLink && (
               <Button
-                disabled
-                className="bg-gray-400 text-white text-sm py-1 rounded cursor-not-allowed w-full"
+                onPress={() => window.open(song.ultimaChartLink, "_blank", "noopener,noreferrer")}
+                color="warning"
+                variant={shouldHighlightChart('ultima') ? "solid" : "flat"}
+                size="sm"
+                className={`w-full font-semibold ${
+                  shouldHighlightChart('ultima') 
+                    ? "ring-2 ring-yellow-500 ring-offset-1 shadow-lg" 
+                    : ""
+                }`}
+                startContent={
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                }
               >
-                No Link Available
+                Ultima Chart
               </Button>
             )}
 
-            {/* Ultima on its own line */}
-            {ultimaChartLink && (
-              <Button
-                href={ultimaChartLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-yellow-500 hover:bg-yellow-600 text-white text-xs px-2 py-1 rounded w-full text-center"
-              >
-                Ultima
-              </Button>
-            )}
-
-            {/* Master + Expert side by side */}
-            <div className="flex gap-1 w-full">
-              {masterChartLink ? (
+            <div className="flex gap-2">
+              {song.masterChartLink ? (
                 <Button
-                  href={masterChartLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-cyan-600 hover:bg-cyan-700 text-white text-xs px-2 py-1 rounded flex-1 text-center"
+                  onPress={() => window.open(song.masterChartLink, "_blank", "noopener,noreferrer")}
+                  color="secondary"
+                  variant={shouldHighlightChart('master') ? "solid" : "flat"}
+                  size="sm"
+                  className={`flex-1 font-semibold ${
+                    shouldHighlightChart('master') 
+                      ? "ring-2 ring-purple-500 ring-offset-1 shadow-lg" 
+                      : ""
+                  }`}
                 >
                   Master
                 </Button>
               ) : (
-                <button
+                <Button
                   disabled
-                  className="border border-cyan-600 text-cyan-600 text-xs px-2 py-1 rounded flex-1 cursor-not-allowed"
+                  variant="flat"
+                  size="sm"
+                  className="flex-1"
                 >
                   No Master
-                </button>
+                </Button>
               )}
 
-              {expertChartLink ? (
+              {song.expertChartLink ? (
                 <Button
-                  href={expertChartLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-red-600 hover:bg-red-700 text-white text-xs px-2 py-1 rounded flex-1 text-center"
+                  onPress={() => window.open(song.expertChartLink, "_blank", "noopener,noreferrer")}
+                  color="danger"
+                  variant={shouldHighlightChart('expert') ? "solid" : "flat"}
+                  size="sm"
+                  className={`flex-1 font-semibold ${
+                    shouldHighlightChart('expert') 
+                      ? "ring-2 ring-red-500 ring-offset-1 shadow-lg" 
+                      : ""
+                  }`}
                 >
                   Expert
                 </Button>
               ) : (
-                <button
+                <Button
                   disabled
-                  className="border border-red-600 text-red-600 text-xs px-2 py-1 rounded flex-1 cursor-not-allowed"
+                  variant="flat"
+                  size="sm"
+                  className="flex-1"
                 >
                   No Expert
-                </button>
+                </Button>
               )}
             </div>
           </div>
-        </CardFooter>
-      </Card>
-    </div>
+        </div>
+      </CardFooter>
+    </Card>
   );
 }
 

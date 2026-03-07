@@ -1,10 +1,10 @@
-export type Difficulty = {
+export interface Difficulty {
   levelName: string;
   value: number;
   faceValue: string;
-};
+}
 
-export type rhythmGameSong = {
+export interface RhythmGameSong {
   id: number;
   songName: string;
   artist: string;
@@ -17,4 +17,7 @@ export type rhythmGameSong = {
   category: string;
   version: string;
   omnimix: boolean;
-};
+}
+
+// Legacy type for backward compatibility
+export type rhythmGameSong = RhythmGameSong;

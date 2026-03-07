@@ -1,10 +1,54 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './App.css'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import App from "./pages/App.tsx";
+import "./App.css";
+import Login from "./pages/Login.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
+import Wrapper from "./pages/Wrapper.tsx";
+import AddSong from "./pages/CreateSong.tsx";
+import UpdateSong from "./pages/UpdateSong.tsx";
+import DeleteSong from "./pages/DeleteSong.tsx";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/Dashboard"
+          element={
+            <Wrapper>
+              <Dashboard />
+            </Wrapper>
+          }
+        />
+        <Route
+          path="/CreateSong"
+          element={
+            <Wrapper>
+              <AddSong />
+            </Wrapper>
+          }
+        />
+        <Route
+          path="/UpdateSong/:id"
+          element={
+            <Wrapper>
+              <UpdateSong />
+            </Wrapper>
+          }
+        />
+        <Route
+          path="/DeleteSong/:id"
+          element={
+            <Wrapper>
+              <DeleteSong />
+            </Wrapper>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>
+);

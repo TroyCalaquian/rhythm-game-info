@@ -93,6 +93,7 @@ Use the following command to run the project: `npm run dev`
 7. Link to topdown view of chart.
 8. Link/refer to codex entry (VERY UNLIKELY)
 9. Change styling to be closer to Chunithm
+10. Convert from Supabase auth to Clerk
 
 # Credits
 

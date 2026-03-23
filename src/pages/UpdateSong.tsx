@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import supabase from "../helper/supabaseClient";
 import {
@@ -11,7 +11,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Chip,
   Divider,
   Spinner,

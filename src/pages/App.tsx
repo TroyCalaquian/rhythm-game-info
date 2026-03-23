@@ -2,7 +2,7 @@ import GameCard from "../components/GameCard";
 import RandomizerModal from "../components/RandomizerModal";
 import SearchBar from "../components/SearchBar";
 import { RhythmGameSong } from "../helper/types";
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import supabase from "../helper/supabaseClient";
 import {
   Pagination,

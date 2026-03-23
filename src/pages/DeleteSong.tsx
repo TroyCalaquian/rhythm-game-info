@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import supabase from "../helper/supabaseClient";
 import { 
@@ -19,8 +19,6 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@heroui/react";
-import categories from "../helper/categories";
-import versions from "../helper/versions";
 
 type DifficultyFormValue = {
   value: string;

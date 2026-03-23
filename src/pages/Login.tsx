@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import supabase from "../helper/supabaseClient";
-import { Form, Input, Button, Card, CardHeader, CardBody, CardFooter, Divider } from "@heroui/react";
+import { Form, Input, Button, Card, CardHeader, CardBody, CardFooter } from "@heroui/react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {

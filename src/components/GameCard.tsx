@@ -1,4 +1,4 @@
-import { Difficulty, RhythmGameSong } from "../helper/types";
+import { RhythmGameSong } from "../helper/types";
 import DifficultyListDisplay from "./DifficultyListDisplay";
 import {
   Card,

@@ -105,7 +105,7 @@ function AddSong() {
       let imageUrl = null;
 
       if (imageFile) {
-        const fileExt = imageFile.name.split(".").pop();
+        // const fileExt = imageFile.name.split(".").pop();
         const fileName = imageFile.name;
         const { error: uploadError } = await supabase.storage
           .from("song-images")

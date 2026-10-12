@@ -2,7 +2,7 @@
 
 A searchable database of songs and charts from [Chunithm](https://chunithm.sega.jp/), a Japanese rhythm game. Look up a song, see every difficulty and its chart constant, and jump straight to the song and chart videos.
 
-**Live site:** [https://warm-mooncake-33e06b.netlify.app/](https://warm-mooncake-33e06b.netlify.app
+**Live site:** [https://warm-mooncake-33e06b.netlify.app/](https://warm-mooncake-33e06b.netlify.app)
 
 > Unofficial fan project. Not affiliated with or endorsed by SEGA.
 

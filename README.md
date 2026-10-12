@@ -119,11 +119,11 @@ type RhythmGameSong = {
 9. Change styling to be closer to Chunithm
 10. Convert from Supabase auth to Clerk
 
-# Credits
+## Credits
 
-All songs and videos belong to their respective owners
+All songs, videos, and images belong to their respective owners.
 
-https://wikiwiki.jp/chunithmwiki/: General list of Songs and images
-https://irodorimidori.fandom.com/wiki/Irodorimidori_Wiki: List of Irodorimidori songs
-https://vocaloidlyrics.fandom.com/wiki/Vocaloid_Lyrics_Wiki: List of Vocaloid songs in romaji
-https://docs.google.com/spreadsheets/d/1xP1huTSA-XWKZaDfmyNh-viRbUE777d2Rg54j5-2VAU/edit?gid=86796591#gid=86796591: Codex for confirming chart constants
+- [Chunithm Wiki](https://wikiwiki.jp/chunithmwiki/): general song list and images
+- [Irodorimidori Wiki](https://irodorimidori.fandom.com/wiki/Irodorimidori_Wiki): Irodorimidori song list
+- [Vocaloid Lyrics Wiki](https://vocaloidlyrics.fandom.com/wiki/Vocaloid_Lyrics_Wiki): Vocaloid songs in romaji
+- [Chart constants codex](https://docs.google.com/spreadsheets/d/1xP1huTSA-XWKZaDfmyNh-viRbUE777d2Rg54j5-2VAU/edit?gid=86796591#gid=86796591): used to confirm chart constants
